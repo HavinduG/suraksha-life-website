@@ -4,20 +4,26 @@ import Facilities from "@/components/home/facilities";
 import AboutMe from "@/components/home/about-me";
 import Services from "@/components/home/services";
 import Events from "@/components/home/events";
+import Schedule from "@/components/home/schedule";
+import OnlineChanneling from "@/components/home/online-channeling";
+import BlogNews from "@/components/home/blog-news";
 import { ACFData } from "@/types/acf";
-import { getPageData, getServicesData, getEventsData } from "@/lib/api";
+import { getPageData, getServicesData, getEventsData, getBlogData } from "@/lib/api";
 
 export default async function Home() {
   let pageData: ACFData | null = null;
   let servicesData: any[] = [];
+  let eventsData: any[] = []; // Initialize eventsData
+  let blogData: any[] = []; // Initialize blogData
   let errorMsg = "";
 
   try {
     // Fetch critical data in parallel
-    const [pageRes, servicesRes, eventsRes] = await Promise.allSettled([
+    const [pageRes, servicesRes, eventsRes, blogRes] = await Promise.allSettled([
       getPageData(),
       getServicesData(),
-      getEventsData()
+      getEventsData(),
+      getBlogData()
     ]);
 
     if (pageRes.status === 'fulfilled') {
@@ -32,10 +38,17 @@ export default async function Home() {
 
     if (eventsRes.status === 'fulfilled') {
       // Ensure specific typing if needed or pass as is
-      var eventsData = eventsRes.value || [];
+      eventsData = eventsRes.value || [];
     } else {
       console.error("Failed to fetch events:", eventsRes.reason);
-      var eventsData = [];
+      eventsData = [];
+    }
+
+    if (blogRes.status === 'fulfilled') {
+      blogData = blogRes.value || [];
+    } else {
+      console.error("Failed to fetch blog posts:", blogRes.reason);
+      blogData = [];
     }
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -88,6 +101,9 @@ export default async function Home() {
 
       <Services data={pageData} />
       <Events data={pageData} events={eventsData} />
+      <Schedule data={pageData} />
+      <OnlineChanneling data={pageData} />
+      <BlogNews data={pageData} posts={blogData} />
     </main>
   );
 }

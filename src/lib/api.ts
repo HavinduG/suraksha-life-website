@@ -71,3 +71,21 @@ export async function getEventsData() {
     const events = await res.json();
     return events;
 }
+
+export async function getBlogData() {
+    if (!WORDPRESS_API_URL) {
+        throw new Error("NEXT_PUBLIC_WORDPRESS_URL is not defined");
+    }
+
+    const res = await fetch(`${WORDPRESS_API_URL}/wp-json/wp/v2/blog?_embed&per_page=3`, {
+        next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+        console.warn("Failed to fetch blog data");
+        return [];
+    }
+
+    const posts = await res.json();
+    return posts;
+}

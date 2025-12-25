@@ -78,8 +78,17 @@ export interface ServiceItem {
   };
 }
 
+// Schedule Section Types
+export interface ScheduleDetail {
+  acf_fc_layout: string;
+  schedule_icon: ACFImage | false; // Can be an image object or false if empty
+  schedule_text_1: string;
+  schedule_text_2: string;
+}
+
 export interface ACFData {
   hero: HeroSectionData[];
+  // ... existing fields ...
   nav_bar: NavBarItem[];
   button_header: string;
   button_header_link: string;
@@ -115,6 +124,56 @@ export interface ACFData {
   ev_whatsapp_number: string;
   button_3: string;
   button_3_link: string;
+  // Schedule Section
+  sce_title: string;
+  sce_section_title: string;
+  sce_sub_topic: string;
+  sce_main_topic: string;
+  scedule_details: ScheduleDetail[];
+  schedule_doctor_image: ACFImage;
+  button_4: string;
+  button_4_link: string;
+  // Online Channeling Section
+  oc_title: string;
+  oc_section_title: string;
+  booking_topic: string;
+  chaneling_list: ChannelingItem[];
+  payment_title: string;
+  payment_options: PaymentMethodItem[];
+  channeling_doctor_image: ACFImage;
+  button_5: string;
+  button_5_link: string;
+  // Blog Section
+  blog_title: string;       // e.g. "Visit my blog and keep your feedback"
+  blog_section_title: string; // e.g. "Blog News"
+}
+
+export interface BlogPost {
+  id: number;
+  date: string;
+  link: string;
+  title: {
+    rendered: string;
+  };
+  acf: {
+    blog_image: ACFImage;
+    blog_title: string;
+    blog_category: string;
+    blog_time: string;
+    blog_description: string;
+  };
+}
+
+export interface ChannelingItem {
+  acf_fc_layout: string;
+  channeling_icon: ACFImage;
+  channeling_text: string;
+}
+
+export interface PaymentMethodItem {
+  acf_fc_layout: string;
+  payment_image: ACFImage;
+  payment_text: string;
 }
 
 export interface BulletPoint {

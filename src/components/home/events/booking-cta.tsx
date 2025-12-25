@@ -33,7 +33,7 @@ const BookingCTA = ({ data }: BookingCTAProps) => {
 
             <Button
                 asChild
-                className="bg-[#02C39A] hover:bg-[#02C39A]/90 text-white font-bold py-6 px-8 rounded-md shadow-lg transition-transform hover:scale-105"
+                className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-bold py-6 px-8 rounded-md shadow-lg transition-transform hover:scale-105"
             >
                 <Link href={data.button_3_link || "#"}>
                     {data.button_3 || "Book a Seminar"}
