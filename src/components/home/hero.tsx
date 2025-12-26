@@ -107,7 +107,7 @@ const Hero = ({ data }: HeroProps) => {
                             asChild
                             className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-semibold py-6 px-8 rounded-md shadow-lg transition-transform hover:scale-105"
                         >
-                            <Link href={data.button_1_link || "#"}>
+                            <Link href={data.button_1_link || ""}>
                                 {data.button_1}
                             </Link>
                         </Button>

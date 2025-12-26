@@ -159,7 +159,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                                                     alt="payment icon"
                                                     width={24}
                                                     height={24}
-                                                    className="object-contain"
+                                                    className="object-contain w-auto h-auto"
                                                 />
                                             ) : (
                                                 <div className="w-4 h-4 bg-slate-300 rounded" />
@@ -179,7 +179,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                                 asChild
                                 className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-bold py-6 px-8 rounded-md shadow-md transition-transform hover:scale-105"
                             >
-                                <Link href={data.button_5_link || "#"}>
+                                <Link href={data.button_5_link || ""}>
                                     {data.button_5 || "Book Online Consultation"}
                                 </Link>
                             </Button>

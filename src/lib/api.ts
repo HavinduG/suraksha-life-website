@@ -89,3 +89,68 @@ export async function getBlogData() {
     const posts = await res.json();
     return posts;
 }
+
+export async function getVideosData() {
+    if (!WORDPRESS_API_URL) {
+        throw new Error("NEXT_PUBLIC_WORDPRESS_URL is not defined");
+    }
+
+    const res = await fetch(`${WORDPRESS_API_URL}/wp-json/wp/v2/video?_embed&per_page=3`, {
+        next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+        console.warn("Failed to fetch video data");
+        return [];
+    }
+
+    const videos = await res.json();
+    return videos;
+}
+
+export async function getShortsData() {
+    if (!WORDPRESS_API_URL) {
+        throw new Error("NEXT_PUBLIC_WORDPRESS_URL is not defined");
+    }
+
+    const res = await fetch(`${WORDPRESS_API_URL}/wp-json/wp/v2/short?_embed&per_page=10`, {
+        next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+        console.warn("Failed to fetch shorts data");
+        return [];
+    }
+
+    const shorts = await res.json();
+    return shorts;
+}
+
+export async function getResourcesData() {
+    if (!WORDPRESS_API_URL) {
+        throw new Error("NEXT_PUBLIC_WORDPRESS_URL is not defined");
+    }
+
+    // Use search endpoint as workaround because the direct CPT endpoint /wp-json/wp/v2/resource might be returning 404
+    // due to permalink or registration issues on the backend.
+    const res = await fetch(`${WORDPRESS_API_URL}/wp-json/wp/v2/search?subtype=resource&_embed&per_page=10`, {
+        next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+        console.warn("Failed to fetch resources data");
+        return [];
+    }
+
+    const searchResults = await res.json();
+
+    // Extract the actual resource objects from _embedded.self
+    const resources = searchResults.map((item: any) => {
+        if (item._embedded && item._embedded.self && item._embedded.self[0]) {
+            return item._embedded.self[0];
+        }
+        return null;
+    }).filter((item: any) => item !== null);
+
+    return resources;
+}

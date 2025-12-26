@@ -7,23 +7,32 @@ import Events from "@/components/home/events";
 import Schedule from "@/components/home/schedule";
 import OnlineChanneling from "@/components/home/online-channeling";
 import BlogNews from "@/components/home/blog-news";
+import VideoLearning from "@/components/home/video-learning";
+import Resources from "@/components/home/resources";
+import Testimonial from "@/components/home/testimonial";
 import { ACFData } from "@/types/acf";
-import { getPageData, getServicesData, getEventsData, getBlogData } from "@/lib/api";
+import { getPageData, getServicesData, getEventsData, getBlogData, getVideosData, getShortsData, getResourcesData } from "@/lib/api";
 
 export default async function Home() {
   let pageData: ACFData | null = null;
   let servicesData: any[] = [];
-  let eventsData: any[] = []; // Initialize eventsData
-  let blogData: any[] = []; // Initialize blogData
+  let eventsData: any[] = [];
+  let blogData: any[] = [];
+  let videosData: any[] = [];
+  let shortsData: any[] = [];
+  let resourcesData: any[] = [];
   let errorMsg = "";
 
   try {
     // Fetch critical data in parallel
-    const [pageRes, servicesRes, eventsRes, blogRes] = await Promise.allSettled([
+    const [pageRes, servicesRes, eventsRes, blogRes, videosRes, shortsRes, resourcesRes] = await Promise.allSettled([
       getPageData(),
       getServicesData(),
       getEventsData(),
-      getBlogData()
+      getBlogData(),
+      getVideosData(),
+      getShortsData(),
+      getResourcesData()
     ]);
 
     if (pageRes.status === 'fulfilled') {
@@ -37,7 +46,6 @@ export default async function Home() {
     }
 
     if (eventsRes.status === 'fulfilled') {
-      // Ensure specific typing if needed or pass as is
       eventsData = eventsRes.value || [];
     } else {
       console.error("Failed to fetch events:", eventsRes.reason);
@@ -50,6 +58,28 @@ export default async function Home() {
       console.error("Failed to fetch blog posts:", blogRes.reason);
       blogData = [];
     }
+
+    if (videosRes.status === 'fulfilled') {
+      videosData = videosRes.value || [];
+    } else {
+      console.error("Failed to fetch videos:", videosRes.reason);
+      videosData = [];
+    }
+
+    if (shortsRes.status === 'fulfilled') {
+      shortsData = shortsRes.value || [];
+    } else {
+      console.error("Failed to fetch shorts:", shortsRes.reason);
+      shortsData = [];
+    }
+
+    if (resourcesRes.status === 'fulfilled') {
+      resourcesData = resourcesRes.value || [];
+    } else {
+      console.error("Failed to fetch resources:", resourcesRes.reason);
+      resourcesData = [];
+    }
+
   } catch (error) {
     console.error("Error fetching data:", error);
     errorMsg = "Failed to load content. Please verify that your WordPress instance is running and has a page with slug 'home'.";
@@ -104,6 +134,9 @@ export default async function Home() {
       <Schedule data={pageData} />
       <OnlineChanneling data={pageData} />
       <BlogNews data={pageData} posts={blogData} />
+      <VideoLearning data={pageData} videos={videosData} shorts={shortsData} />
+      <Resources data={pageData} resources={resourcesData} />
+      <Testimonial data={pageData} />
     </main>
   );
 }

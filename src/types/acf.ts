@@ -146,6 +146,23 @@ export interface ACFData {
   // Blog Section
   blog_title: string;       // e.g. "Visit my blog and keep your feedback"
   blog_section_title: string; // e.g. "Blog News"
+
+  // Resources Section
+  res_title: string;
+  res_section_title: string;
+
+  // Video Learning Section
+  v_title: string;
+  v_section_title: string;
+  v_sub_topic: string;
+  button_6: string;
+  button_6_link: string;
+  v_bottom_small_text: string;
+
+  // Testimonial Section
+  test_title: string;
+  test_section_title: string;
+  feedback_list: TestimonialItem[];
 }
 
 export interface BlogPost {
@@ -196,4 +213,49 @@ export interface EventItem {
     event_date_and_time: string; // "December 10, 2026 12:00 am"
     event_description: string;
   };
+}
+
+export interface ResourceItem {
+  id: number;
+  title: {
+    rendered: string;
+  };
+  acf: {
+    resource_title: string;
+    resource_description: string;
+    resource_image: ACFImage;
+    resource_pdf: ACFImage;
+    download_icon: ACFImage;
+  };
+}
+
+export interface VideoItem {
+  id: number;
+  title: {
+    rendered: string;
+  };
+  acf: {
+    video_link: string;
+    video_image: ACFImage;
+  };
+}
+
+export interface ShortItem {
+  id: number;
+  title: {
+    rendered: string;
+  };
+  acf: {
+    short_video_link: string;
+    short_video_image: ACFImage;
+  };
+}
+
+export interface TestimonialItem {
+  acf_fc_layout: string;
+  user_photo_feedback: ACFImage;
+  f_user_position: string;
+  f_user_name: string;
+  user_feedback_description: string;
+  star_range: string;
 }
