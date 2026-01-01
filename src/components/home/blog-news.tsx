@@ -99,8 +99,8 @@ const BlogNews = ({ data, posts }: BlogNewsProps) => {
                             <div
                                 className="h-full rounded-3xl p-4 bg-white transition-all duration-300 hover:-translate-y-2"
                                 style={{
-                                    background: "linear-gradient(145deg, #ffffff, #E2E8EC)",
-                                    boxShadow: "5px 5px 20px #D1D9E6, -5px -5px 20px #FFFFFF"
+                                    background: "linear-gradient(145deg, #E2E8EC, #FFFFFF)",
+                                    boxShadow: "5px 5px 15px #D1D9E6, -5px -5px 15px #FFFFFF",
                                 }}
                             >
                                 {/* Image Container */}

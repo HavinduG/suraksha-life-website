@@ -37,13 +37,6 @@ const Hero = ({ data }: HeroProps) => {
                 { opacity: 0, x: -50 },
                 { opacity: 1, x: 0, duration: 1, delay: 0.2 }
             )
-                .fromTo(
-                    imageRef.current,
-                    { opacity: 0, x: 50 },
-                    { opacity: 1, x: 0, duration: 1 },
-                    "-=0.8"
-                )
-                // Animate children of text container for stagger effect
                 .from(
                     ".hero-text-element",
                     {
@@ -59,10 +52,6 @@ const Hero = ({ data }: HeroProps) => {
         return () => ctx.revert();
     }, []);
 
-    // Split the doctor name into greeting and name if possible
-    // Expected format: "Hi, I’m Vihanga Wijesinghe"
-    // We want to style "Hi, I'm" differently from "Vihanga Wijesinghe"
-
     const nameParts = data.doctor_name.match(/^(Hi, I’m)\s+(.*)$/i);
     const greeting = nameParts ? nameParts[1] : "";
     const name = nameParts ? nameParts[2] : data.doctor_name;
@@ -70,18 +59,32 @@ const Hero = ({ data }: HeroProps) => {
     return (
         <section
             ref={containerRef}
-            className="relative w-full min-h-[90vh] bg-gradient-to-r from-slate-50 to-slate-100 flex items-center overflow-hidden"
+            className="relative w-full min-h-[90vh] flex items-center overflow-hidden"
         >
-            {/* Background shape or gradient overlay could be added here */}
-            <div className="container mx-auto px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* 1. Full Cover Background Image */}
+            <div className="absolute inset-0 z-0 bg-[#ECF0F3]"> {/* Added background color for safe area */}
+                <Image
+                    src={data.doctor_hero_image?.url || "http://suraksha.local/wp-content/uploads/2025/12/10-copy.jpg"}
+                    alt={data.doctor_hero_image?.alt || "Hero Background"}
+                    fill
+                    className="object-contain object-right" // Changed to contain and align right to show full image
+                    priority
+                />
+            </div>
+
+            {/* 2. Gradient Overlay Removed as requested */}
+
+            {/* 3. Content Container */}
+            <div className="container relative z-20 mx-auto px-4 md:px-6 lg:px-8 h-full flex items-center">
+
                 {/* Text Content */}
-                <div ref={textRef} className="flex flex-col space-y-6 z-10 order-2 lg:order-1">
-                    <p className={cn("hero-text-element text-xs md:text-sm font-bold tracking-[0.2em] text-[#3C3E41] uppercase", montserrat.className)}>
+                <div ref={textRef} className="flex flex-col space-y-6 pt-12 lg:pt-0 max-w-3xl">
+                    <p className={cn("hero-text-element text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase", montserrat.className)}>
                         {data.doctor_title}
                     </p>
 
-                    <h1 className={cn("hero-text-element text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-[#1E2125]", montserrat.className)}>
-                        {greeting && <span className="block text-3xl md:text-4xl text-[#1E2125] mb-2">{greeting}</span>}
+                    <h1 className={cn("hero-text-element text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] text-[#1E2125]", montserrat.className)}>
+                        {greeting && <span className="block text-3xl md:text-4xl text-[#1E2125] mb-2 font-bold">{greeting}</span>}
                         <span className="text-[#05668D]">
                             {name}
                         </span>
@@ -98,35 +101,19 @@ const Hero = ({ data }: HeroProps) => {
                         ))}
                     </div>
 
-                    <p className={cn("hero-text-element text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-xl", poppins.className)}>
+                    <p className={cn("hero-text-element text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-xl font-medium opacity-90", poppins.className)}>
                         {data.doctor_hero_description}
                     </p>
 
-                    <div className="hero-text-element pt-4">
+                    <div className="hero-text-element pt-6">
                         <Button
                             asChild
-                            className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-semibold py-6 px-8 rounded-md shadow-lg transition-transform hover:scale-105"
+                            className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-bold py-7 px-10 rounded-md shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
                         >
-                            <Link href={data.button_1_link || ""}>
+                            <Link href={data.button_1_link || "#"}>
                                 {data.button_1}
                             </Link>
                         </Button>
-                    </div>
-                </div>
-
-                {/* Image Content */}
-                <div ref={imageRef} className="relative h-full w-full flex justify-center lg:justify-end order-1 lg:order-2">
-                    <div className="relative w-full max-w-md lg:max-w-lg aspect-[3/4] lg:aspect-square">
-                        {/* Using the provided URL. Note: Ensure suraksha.local is reachable or use placeholder if it fails locally. 
-                 For the purpose of this task, we assume the environment is set up to resolve it. */}
-                        <Image
-                            src={data.doctor_hero_image.url}
-                            alt={data.doctor_hero_image.alt || data.doctor_name}
-                            fill
-                            className="object-cover object-top lg:object-contain drop-shadow-2xl rounded-lg lg:rounded-none lg:bg-transparent"
-                            priority
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
                     </div>
                 </div>
             </div>

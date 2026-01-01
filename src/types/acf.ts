@@ -163,6 +163,46 @@ export interface ACFData {
   test_title: string;
   test_section_title: string;
   feedback_list: TestimonialItem[];
+
+  // Short Section (CTA)
+  short_section_title: string;
+  short_section_sub_title: string;
+  button_7: string;
+  button_7_link: string;
+  short_page: ACFImage;
+
+  // Footer Data
+  footer_title_: string;
+  dr_personal_details: ContactDetail[];
+  personal_details?: ContactDetail[]; // Valid backend Alias
+  social_media_details: SocialMediaDetail[];
+  quick_links: QuickLink[];
+  support: SupportLink[];
+}
+
+export interface ContactDetail {
+  acf_fc_layout: string;
+  contact_title: string;
+  contact_details: string;
+  contact_details_icon: ACFImage;
+}
+
+export interface SocialMediaDetail {
+  acf_fc_layout: string;
+  social_media_icon: ACFImage;
+  social_media_url: string;
+}
+
+export interface QuickLink {
+  acf_fc_layout: string;
+  page_link_name: string;
+  page_link_url: string;
+}
+
+export interface SupportLink {
+  acf_fc_layout: string;
+  support_link: string;
+  support_links_url: string;
 }
 
 export interface BlogPost {

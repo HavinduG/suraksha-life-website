@@ -9,7 +9,9 @@ import OnlineChanneling from "@/components/home/online-channeling";
 import BlogNews from "@/components/home/blog-news";
 import VideoLearning from "@/components/home/video-learning";
 import Resources from "@/components/home/resources";
+import Footer from "@/components/layout/footer";
 import Testimonial from "@/components/home/testimonial";
+import ShortSection from "@/components/home/short-section";
 import { ACFData } from "@/types/acf";
 import { getPageData, getServicesData, getEventsData, getBlogData, getVideosData, getShortsData, getResourcesData } from "@/lib/api";
 
@@ -137,6 +139,8 @@ export default async function Home() {
       <VideoLearning data={pageData} videos={videosData} shorts={shortsData} />
       <Resources data={pageData} resources={resourcesData} />
       <Testimonial data={pageData} />
+      <ShortSection data={pageData} />
+      <Footer data={pageData} />
     </main>
   );
 }

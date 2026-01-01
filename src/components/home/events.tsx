@@ -111,7 +111,7 @@ const Events = ({ data, events = [] }: EventsProps) => {
                     {/* Left Column: Doctor Image */}
                     <div ref={imageRef} className="relative w-full flex justify-center lg:justify-end">
                         {/* Shadow/Backdrop effect for image */}
-                        <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+                        <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-2xl overflow-hidden shadow-[5px_5px_15px_#D1D9E6,-5px_-5px_15px_#FFFFFF] transform hover:scale-[1.02] transition-transform duration-500">
                             {data.events_doctor_image?.url ? (
                                 <Image
                                     src={data.events_doctor_image.url}

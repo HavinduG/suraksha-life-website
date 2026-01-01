@@ -11,18 +11,82 @@ import { cn } from "@/lib/utils";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
-    weight: ["400", "700"],
+    weight: ["400", "700", "800"],
 });
 
 interface HeaderProps {
     data: ACFData;
 }
 
+import { usePathname } from "next/navigation";
+
 const Header = ({ data }: HeaderProps) => {
+    const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const formatLink = (link: string, name?: string) => {
+        const lowerName = name?.toLowerCase().trim() || "";
+        const lowerLink = link?.toLowerCase().trim() || "";
+
+        // Manual overrides for core routes
+        if (lowerName === "service" || lowerName === "services" || lowerLink.endsWith("/services") || lowerLink.endsWith("/service")) {
+            return "/services";
+        }
+
+        if (lowerName === "events" || lowerName === "event" || lowerLink.endsWith("/events") || lowerLink.endsWith("/event")) {
+            return "/events";
+        }
+
+        if (lowerName === "blog" || lowerName === "news" || lowerLink.endsWith("/blog")) {
+            return "/blog";
+        }
+
+        if (lowerName.includes("contact") || lowerLink.endsWith("/contact")) {
+            return "/contact";
+        }
+
+        if (lowerName === "home") {
+            return "/";
+        }
+
+        if (!link) return "#";
+
+        // Remove the WordPress domain to keep navigation internal
+        const wpUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || "http://suraksha.local";
+
+        if (link.startsWith(wpUrl)) {
+            let relative = link.replace(wpUrl, "");
+            relative = relative.startsWith("/") ? relative : `/${relative}`;
+
+            // Cleanup double slashes if any
+            relative = relative.replace("//", "/");
+
+            if (relative === "/home/" || relative === "/home") {
+                return "/";
+            }
+            if (relative === "/about/" || relative === "/about") {
+                return "/about";
+            }
+
+            return relative;
+        }
+
+        return link;
+    };
+
+    const isActive = (link: string, name?: string) => {
+        if (!link) return false;
+        const formattedLink = formatLink(link, name);
+
+        // Simple normalization: remove trailing slash
+        const cleanLink = formattedLink.endsWith('/') && formattedLink.length > 1 ? formattedLink.slice(0, -1) : formattedLink;
+        const cleanPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+
+        return cleanLink === cleanPath;
     };
 
     return (
@@ -45,18 +109,35 @@ const Header = ({ data }: HeaderProps) => {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden lg:flex items-center space-x-8">
-                    {data.nav_bar.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.tab_link}
-                            className={cn(
-                                "text-sm font-bold text-slate-600 hover:text-[#05668D] transition-colors uppercase tracking-wide",
-                                montserrat.className
-                            )}
-                        >
-                            {item.nav_bar_tab_name}
-                        </Link>
-                    ))}
+                    {data.nav_bar.map((item, index) => {
+                        // Normalize the link to check against current pathname
+                        // Assuming item.tab_link could be absolute or relative
+                        // efficient check: match end of string or exact match
+
+                        // We need to determine if this item is active.
+                        // Since usePathname is a hook, we need to call it outside the map, but we can't do that.
+                        // So we must move the map content or call hook at component level. 
+                        // Wait, I can only call usePathname at the top level of the component.
+                        // The tool renders the whole file or chunk. I will rewrite the component start to include the hook.
+
+                        return (
+                            <Link
+                                key={index}
+                                href={formatLink(item.tab_link, item.nav_bar_tab_name)}
+                                prefetch={false}
+                                className={cn(
+                                    "text-sm font-bold uppercase tracking-wide relative transition-all duration-300 transform origin-center",
+                                    "after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full after:bg-[#05668D] after:transition-transform after:duration-300 after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left",
+                                    isActive(item.tab_link, item.nav_bar_tab_name)
+                                        ? "text-[#05668D] font-extrabold scale-105"
+                                        : "text-slate-600 hover:text-[#05668D] hover:font-extrabold hover:scale-105",
+                                    montserrat.className
+                                )}
+                            >
+                                {item.nav_bar_tab_name}
+                            </Link>
+                        )
+                    })}
                 </nav>
 
                 {/* Desktop Button */}
@@ -97,8 +178,14 @@ const Header = ({ data }: HeaderProps) => {
                         {data.nav_bar.map((item, index) => (
                             <Link
                                 key={index}
-                                href={item.tab_link}
-                                className="text-base font-bold text-slate-600 hover:text-[#05668D] transition-colors uppercase"
+                                href={formatLink(item.tab_link, item.nav_bar_tab_name)}
+                                prefetch={false}
+                                className={cn(
+                                    "text-base font-bold transition-colors uppercase",
+                                    isActive(item.tab_link, item.nav_bar_tab_name)
+                                        ? "text-[#05668D]"
+                                        : "text-slate-600 hover:text-[#05668D]"
+                                )}
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {item.nav_bar_tab_name}
