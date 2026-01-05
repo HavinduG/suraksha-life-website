@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Montserrat, Poppins } from "next/font/google";
@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData, BlogPost } from "@/types/acf";
 import { cn } from "@/lib/utils";
+import BlogDetailModal from "./blog/blog-detail-modal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,6 +30,36 @@ interface BlogNewsProps {
 const BlogNews = ({ data, posts }: BlogNewsProps) => {
     const sectionRef = useRef<HTMLElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+
+    const handleSelectPost = (post: BlogPost) => {
+        setSelectedPost(post);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedPost(null);
+    };
+
+    const handleNext = () => {
+        if (!selectedPost) return;
+        const currentIndex = posts.findIndex(p => p.id === selectedPost.id);
+        if (currentIndex < posts.length - 1) {
+            setSelectedPost(posts[currentIndex + 1]);
+        }
+    };
+
+    const handlePrev = () => {
+        if (!selectedPost) return;
+        const currentIndex = posts.findIndex(p => p.id === selectedPost.id);
+        if (currentIndex > 0) {
+            setSelectedPost(posts[currentIndex - 1]);
+        }
+    };
+
+    // Determine nav state
+    const currentIndex = selectedPost ? posts.findIndex(p => p.id === selectedPost.id) : -1;
+    const hasNext = currentIndex >= 0 && currentIndex < posts.length - 1;
+    const hasPrev = currentIndex > 0;
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -91,10 +122,10 @@ const BlogNews = ({ data, posts }: BlogNewsProps) => {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
                     {latestPosts.map((post) => (
-                        <Link
+                        <div
                             key={post.id}
-                            href={post.link}
-                            className="blog-card group block h-full"
+                            onClick={() => handleSelectPost(post)}
+                            className="blog-card group block h-full cursor-pointer"
                         >
                             <div
                                 className="h-full rounded-3xl p-4 bg-white transition-all duration-300 hover:-translate-y-2"
@@ -142,11 +173,23 @@ const BlogNews = ({ data, posts }: BlogNewsProps) => {
 
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>
-        </section>
+
+            {/* Blog Detail Modal */}
+            {selectedPost && (
+                <BlogDetailModal
+                    post={selectedPost}
+                    onClose={handleCloseModal}
+                    onNext={handleNext}
+                    onPrev={handlePrev}
+                    hasNext={hasNext}
+                    hasPrev={hasPrev}
+                />
+            )}
+        </section >
     );
 };
 

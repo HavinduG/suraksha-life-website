@@ -52,9 +52,19 @@ const Hero = ({ data }: HeroProps) => {
         return () => ctx.revert();
     }, []);
 
-    const nameParts = data.doctor_name.match(/^(Hi, I’m)\s+(.*)$/i);
-    const greeting = nameParts ? nameParts[1] : "";
-    const name = nameParts ? nameParts[2] : data.doctor_name;
+    // Parse name into Greeting, First Name, Last Name
+    // Robust regex: Matches (Anything treated as greeting) + (Last two words as name)
+    // Examples handled: "Hi, I'm Vihanga Wijesinghe", "Hi, I m Vihanga Wijesinghe", "Dr. Sameera Gunawardena"
+    // Using [\s\S] instead of dotAll /s flag for better compatibility
+    const nameMatch = data.doctor_name.match(/^([\s\S]*?)\s+(\S+)\s+(\S+)$/);
+
+    // Fallback if regex doesn't match perfectly
+    const greeting = nameMatch ? nameMatch[1] : "";
+    const firstName = nameMatch ? nameMatch[2] : "";
+    const lastName = nameMatch ? nameMatch[3] : data.doctor_name;
+
+    // If no match, we might just have the name or a different format. 
+    // In that case, lastName holds the full string, others empty.
 
     return (
         <section
@@ -78,16 +88,28 @@ const Hero = ({ data }: HeroProps) => {
             <div className="container relative z-20 mx-auto px-4 md:px-6 lg:px-8 h-full flex items-center">
 
                 {/* Text Content */}
-                <div ref={textRef} className="flex flex-col space-y-6 pt-12 lg:pt-0 max-w-3xl">
+                <div ref={textRef} className="flex flex-col space-y-6 pt-12 lg:pt-0 max-w-4xl">
                     <p className={cn("hero-text-element text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase", montserrat.className)}>
                         {data.doctor_title}
                     </p>
 
-                    <h1 className={cn("hero-text-element text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] text-[#1E2125]", montserrat.className)}>
-                        {greeting && <span className="block text-3xl md:text-4xl text-[#1E2125] mb-2 font-bold">{greeting}</span>}
-                        <span className="text-[#05668D]">
-                            {name}
-                        </span>
+                    <h1 className={cn("hero-text-element text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1]", montserrat.className)}>
+                        {/* Line 1: Hi, I'm Vihanga */}
+                        {greeting && firstName ? (
+                            <span className="text-[#1E2125]">
+                                {greeting} <span className="text-[#05668D]">{firstName}</span>
+                            </span>
+                        ) : (
+                            // Fallback if parsing failed
+                            <span className="text-[#05668D]">{data.doctor_name}</span>
+                        )}
+
+                        {/* Line 2: Wijesinghe */}
+                        {lastName && greeting && (
+                            <span className="block text-[#05668D]">
+                                {lastName}
+                            </span>
+                        )}
                     </h1>
 
                     <div className={cn("hero-text-element flex flex-wrap items-center gap-2 text-sm md:text-base font-bold text-[#3C3E41]", montserrat.className)}>
@@ -101,7 +123,7 @@ const Hero = ({ data }: HeroProps) => {
                         ))}
                     </div>
 
-                    <p className={cn("hero-text-element text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-xl font-medium opacity-90", poppins.className)}>
+                    <p className={cn("hero-text-element text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-2xl font-medium opacity-90", poppins.className)}>
                         {data.doctor_hero_description}
                     </p>
 

@@ -13,9 +13,10 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 interface PastEventsProps {
     events: EventItem[];
     title: string;
+    onSelectEvent: (event: EventItem) => void;
 }
 
-const PastEvents = ({ events, title }: PastEventsProps) => {
+const PastEvents = ({ events, title, onSelectEvent }: PastEventsProps) => {
     // Determine the featured event (most recent past event)
     const featuredEvent = events[0];
     const otherEvents = events.slice(1, 4); // Show next 3
@@ -40,7 +41,8 @@ const PastEvents = ({ events, title }: PastEventsProps) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left: Featured Event */}
                 <div
-                    className="h-full rounded-2xl p-4 lg:p-6 flex flex-col justify-between gap-4 transition-all duration-300 hover:shadow-lg"
+                    onClick={() => onSelectEvent(featuredEvent)}
+                    className="h-full rounded-2xl p-4 lg:p-6 flex flex-col justify-between gap-4 transition-all duration-300 hover:shadow-lg cursor-pointer"
                     style={{
                         background: "linear-gradient(145deg, #E2E8EC, #FFFFFF)",
                         boxShadow: "5px 5px 15px #D1D9E6, -5px -5px 15px #FFFFFF",
@@ -98,7 +100,8 @@ const PastEvents = ({ events, title }: PastEventsProps) => {
                     {otherEvents.map(event => (
                         <div
                             key={event.id}
-                            className="flex-1 rounded-xl p-4 flex gap-4 items-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                            onClick={() => onSelectEvent(event)}
+                            className="flex-1 rounded-xl p-4 flex gap-4 items-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
                             style={{
                                 background: "linear-gradient(145deg, #E2E8EC, #FFFFFF)",
                                 boxShadow: "5px 5px 15px #D1D9E6, -5px -5px 15px #FFFFFF",

@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import UpcomingEvents from "./events/upcoming-events";
 import PastEvents from "./events/past-events";
 import BookingCTA from "./events/booking-cta";
+import EventDetailModal from "./events/event-detail-modal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,17 @@ const Events = ({ data, events = [] }: EventsProps) => {
     const sectionRef = useRef<HTMLElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
+
+    // State for selected event (Modal)
+    const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
+
+    const handleSelectEvent = (event: EventItem) => {
+        setSelectedEvent(event);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedEvent(null);
+    };
 
     // Filter events
     const currentDate = new Date();
@@ -167,15 +179,30 @@ const Events = ({ data, events = [] }: EventsProps) => {
                 ------------------------------------------------------------ */}
 
                 {/* Upcoming Events & Calendar */}
-                <UpcomingEvents events={upcomingEvents} allEvents={events} />
+                <UpcomingEvents
+                    events={upcomingEvents}
+                    allEvents={events}
+                    onSelectEvent={handleSelectEvent}
+                />
 
                 {/* Past Events */}
-                <PastEvents events={pastEvents} title={data.recent_past_ev_title} />
+                <PastEvents
+                    events={pastEvents}
+                    title={data.recent_past_ev_title}
+                    onSelectEvent={handleSelectEvent}
+                />
 
                 {/* Booking CTA */}
                 <BookingCTA data={data} />
 
             </div>
+            {/* Event Detail Modal */}
+            {selectedEvent && (
+                <EventDetailModal
+                    event={selectedEvent}
+                    onClose={handleCloseModal}
+                />
+            )}
         </section>
     );
 };

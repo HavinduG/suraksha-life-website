@@ -14,9 +14,10 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 interface UpcomingEventsProps {
     events: EventItem[];
     allEvents: EventItem[];
+    onSelectEvent: (event: EventItem) => void;
 }
 
-const UpcomingEvents = ({ events, allEvents }: UpcomingEventsProps) => {
+const UpcomingEvents = ({ events, allEvents, onSelectEvent }: UpcomingEventsProps) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
     // Filter events for selected date from ALL events (past + upcoming)
@@ -46,7 +47,8 @@ const UpcomingEvents = ({ events, allEvents }: UpcomingEventsProps) => {
                         events.slice(0, 3).map((event) => (
                             <div
                                 key={event.id}
-                                className="rounded-xl p-6 flex flex-col md:flex-row gap-6 items-start transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                                onClick={() => onSelectEvent(event)}
+                                className="rounded-xl p-6 flex flex-col md:flex-row gap-6 items-start transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
                                 style={{
                                     background: "linear-gradient(145deg, #E2E8EC, #FFFFFF)",
                                     boxShadow: "5px 5px 15px #D1D9E6, -5px -5px 15px #FFFFFF",
@@ -126,7 +128,8 @@ const UpcomingEvents = ({ events, allEvents }: UpcomingEventsProps) => {
                                     eventsOnSelectedDate.map(event => (
                                         <div
                                             key={event.id}
-                                            className="rounded-lg p-4 flex gap-3 items-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                                            onClick={() => onSelectEvent(event)}
+                                            className="rounded-lg p-4 flex gap-3 items-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
                                             style={{
                                                 background: "linear-gradient(145deg, #E2E8EC, #FFFFFF)",
                                                 boxShadow: "5px 5px 15px #D1D9E6, -5px -5px 15px #FFFFFF",
