@@ -31,6 +31,8 @@ const Services = ({ data }: ServicesProps) => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            if (!headerRef.current) return;
+
             // Header Animation
             gsap.from(headerRef.current, {
                 opacity: 0,

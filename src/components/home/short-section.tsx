@@ -34,6 +34,8 @@ const ShortSection = ({ data }: ShortSectionProps) => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            if (!cardRef.current || !textRef.current || !imageRef.current) return;
+
             // Card Entry Animation
             gsap.from(cardRef.current, {
                 y: 50,
