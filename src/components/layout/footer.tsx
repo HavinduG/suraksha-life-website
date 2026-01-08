@@ -92,7 +92,7 @@ const Footer = ({ data }: FooterProps) => {
                         {/* Logo - Sizes Decreased as requested */}
                         <div className="mb-1 mt-1">
                             <Image
-                                src="http://suraksha.local/wp-content/uploads/2026/01/logo.png"
+                                src={`${process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://web.surakshalife.com"}/wp-content/uploads/2026/01/logo.png`}
                                 alt="Suraksha Life Logo"
                                 width={160}
                                 height={60}

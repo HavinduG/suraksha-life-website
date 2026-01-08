@@ -126,7 +126,7 @@ const Header = ({ data }: HeaderProps) => {
                             )}
                         >
                             <Image
-                                src="http://suraksha.local/wp-content/uploads/2026/01/logo.png"
+                                src={`${process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://web.surakshalife.com"}/wp-content/uploads/2026/01/logo.png`}
                                 alt="Suraksha Life Logo"
                                 fill
                                 className="object-contain object-left"
