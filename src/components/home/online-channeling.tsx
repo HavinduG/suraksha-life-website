@@ -53,6 +53,19 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                     start: "top 90%",
                 }
             });
+
+            // Animate Divider
+            gsap.to(".divider-anim-channeling", {
+                width: "100%",
+                opacity: 1,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "bottom 95%",
+                    toggleActions: "play none none reverse"
+                }
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -61,7 +74,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
     return (
         <section
             ref={sectionRef}
-            className="w-full py-20 bg-[#ECF0F3] relative overflow-hidden"
+            className="w-full pt-16 pb-16 bg-[#ECF0F3] relative overflow-hidden"
         >
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
                 {/* Header Section */}
@@ -186,6 +199,18 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                         </div>
                     </div>
                 </div>
+            </div>
+            {/* Dynamic Neumorphic Divider */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] rounded-full opacity-50">
+                <div
+                    className="w-full h-full bg-[#ECF0F3]"
+                    style={{
+                        boxShadow: "inset 2px 2px 5px #DCE1E4, inset -2px -2px 5px #FFFFFF"
+                    }}
+                />
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-1 bg-[#DCE1E4] rounded-full opacity-20 divider-anim-channeling"
+                />
             </div>
         </section>
     );

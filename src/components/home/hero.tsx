@@ -32,40 +32,59 @@ const Hero = ({ data }: HeroProps) => {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-            // Animate Text Content
-            tl.fromTo(
-                textRef.current,
-                { opacity: 0, x: -50 },
-                { opacity: 1, x: 0, duration: 1, delay: 0.2 }
-            )
-                .from(
-                    ".hero-text-element",
-                    {
-                        y: 20,
-                        opacity: 0,
-                        duration: 0.8,
-                        stagger: 0.1,
-                    },
-                    "-=0.5"
-                );
-
-            // Typewriter Animation for Name
+            // 1. Title Characters (Typewriter/Fade-in effect)
             tl.fromTo(
                 ".char-anim",
-                { opacity: 0 },
                 {
-                    opacity: 1,
-                    stagger: 0.08, // Adjust speed: 0.08s per character = typical typing speed
-                    duration: 0.05, // Instant appearance of each char
-                    ease: "none",
+                    y: 20,
+                    opacity: 0,
+                    rotateX: -45
                 },
-                "-=0.6"
+                {
+                    y: 0,
+                    opacity: 1,
+                    rotateX: 0,
+                    stagger: 0.03,
+                    duration: 0.8,
+                    ease: "back.out(1.2)",
+                },
+                "+=0.2"
+            );
+
+            // 2. Subtitle & Description (Slide Up)
+            tl.fromTo(
+                ".hero-content-anim",
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power2.out",
+                },
+                "-=0.4"
+            );
+
+            // 3. Button (Dynamic Pop-in)
+            tl.fromTo(
+                ".hero-btn-anim",
+                { scale: 0.8, opacity: 0, y: 10 },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    ease: "back.out(1.7)", // Bouncy pop effect
+                },
+                "-=0.2"
             );
         }, containerRef);
 
 
         return () => ctx.revert();
     }, []);
+
+
 
     // Parse name into Greeting, First Name, Last Name
     // Robust regex: Matches (Anything treated as greeting) + (Last two words as name)
@@ -106,18 +125,19 @@ const Hero = ({ data }: HeroProps) => {
                 />
             </div>
 
-            {/* 2. Gradient Overlay Removed as requested */}
+            {/* 2. Gradient Overlay Restored for Legibility - Visible only on mobile as requested */}
+            <div className="absolute inset-0 z-10 bg-white/70 md:hidden" />
 
             {/* 3. Content Container */}
             <div className="container relative z-20 mx-auto px-4 md:px-6 lg:px-8 h-full flex items-center">
 
                 {/* Text Content */}
                 <div ref={textRef} className="flex flex-col space-y-6 pt-12 lg:pt-0 max-w-4xl">
-                    <p className={cn("hero-text-element text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase", montserrat.className)}>
+                    <p className={cn("hero-content-anim text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase", montserrat.className)}>
                         {data.doctor_title}
                     </p>
 
-                    <h1 className={cn("hero-text-element text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1]", montserrat.className)}>
+                    <h1 className={cn("text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1]", montserrat.className)}>
                         {/* Line 1: Hi, I'm Vihanga */}
                         {greeting && firstName ? (
                             <span className="text-[#1E2125]">
@@ -141,7 +161,7 @@ const Hero = ({ data }: HeroProps) => {
                         )}
                     </h1>
 
-                    <div className={cn("hero-text-element flex flex-wrap items-center gap-2 text-sm md:text-base font-bold text-[#3C3E41]", montserrat.className)}>
+                    <div className={cn("hero-content-anim flex flex-wrap items-center gap-2 text-sm md:text-base font-bold text-[#3C3E41]", montserrat.className)}>
                         {data.doctor_sub_title.split("|").map((item, index) => (
                             <React.Fragment key={index}>
                                 <span className="whitespace-nowrap">{item.trim()}</span>
@@ -152,11 +172,11 @@ const Hero = ({ data }: HeroProps) => {
                         ))}
                     </div>
 
-                    <p className={cn("hero-text-element text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-2xl font-medium opacity-90", poppins.className)}>
+                    <p className={cn("hero-content-anim text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-2xl font-medium opacity-90", poppins.className)}>
                         {data.doctor_hero_description}
                     </p>
 
-                    <div className="hero-text-element pt-6">
+                    <div className="hero-btn-anim pt-6">
                         <Button
                             asChild
                             className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-bold py-7 px-10 rounded-md shadow-xl transition-all hover:scale-105 hover:shadow-2xl"

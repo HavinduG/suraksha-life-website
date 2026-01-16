@@ -50,6 +50,19 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                     start: "top 85%",
                 },
             });
+
+            // Animate Divider
+            gsap.to(".divider-anim-video", {
+                width: "100%",
+                opacity: 1,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "bottom 95%",
+                    toggleActions: "play none none reverse"
+                }
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -76,7 +89,8 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
 
     const scrollSlider = (direction: 'left' | 'right') => {
         if (sliderRef.current) {
-            const scrollAmount = 300;
+            const { clientWidth } = sliderRef.current;
+            const scrollAmount = clientWidth; // Scroll by full view width
             sliderRef.current.scrollBy({
                 left: direction === 'left' ? -scrollAmount : scrollAmount,
                 behavior: 'smooth'
@@ -91,7 +105,7 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
     return (
         <section
             ref={sectionRef}
-            className="w-full py-20 bg-[#ECF0F3] relative overflow-hidden"
+            className="w-full pt-16 pb-16 bg-[#ECF0F3] relative overflow-hidden"
         >
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
                 {/* Header Section */}
@@ -198,13 +212,32 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                         {/* Slider */}
                         <div
                             ref={sliderRef}
-                            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x"
-                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            className="flex gap-4 overflow-x-auto pb-6 snap-x custom-scrollbar"
+                            style={{
+                                scrollbarWidth: 'thin',
+                                scrollbarColor: '#05668D #ECF0F3'
+                            }}
                         >
+                            <style jsx>{`
+                                .custom-scrollbar::-webkit-scrollbar {
+                                    height: 6px;
+                                }
+                                .custom-scrollbar::-webkit-scrollbar-track {
+                                    background: #ECF0F3;
+                                    border-radius: 10px;
+                                }
+                                .custom-scrollbar::-webkit-scrollbar-thumb {
+                                    background: #05668D;
+                                    border-radius: 10px;
+                                }
+                                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                                    background: #02C39A;
+                                }
+                            `}</style>
                             {shorts.map((short) => (
                                 <div
                                     key={short.id}
-                                    className="flex-shrink-0 w-[140px] md:w-[160px] aspect-[9/16] relative group cursor-pointer rounded-xl overflow-hidden shadow-sm snap-center"
+                                    className="flex-shrink-0 w-[140px] md:w-[160px] aspect-[9/16] relative group cursor-pointer rounded-xl overflow-hidden shadow-sm snap-start"
                                     onClick={() => openVideo(short.acf.short_video_link)}
                                 >
                                     {short.acf.short_video_image?.url ? (
@@ -264,6 +297,18 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                     <div className="absolute inset-0 -z-10" onClick={() => setIsModalOpen(false)} />
                 </div>
             )}
+            {/* Dynamic Neumorphic Divider */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] rounded-full opacity-50">
+                <div
+                    className="w-full h-full bg-[#ECF0F3]"
+                    style={{
+                        boxShadow: "inset 2px 2px 5px #DCE1E4, inset -2px -2px 5px #FFFFFF"
+                    }}
+                />
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-1 bg-[#DCE1E4] rounded-full opacity-20 divider-anim-video"
+                />
+            </div>
         </section>
     );
 };

@@ -69,6 +69,19 @@ const ShortSection = ({ data }: ShortSectionProps) => {
                     ease: "power2.out"
                 }, "-=0.6");
 
+
+            // Animate Divider
+            gsap.to(".divider-anim-short", {
+                width: "100%",
+                opacity: 1,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "bottom 95%",
+                    toggleActions: "play none none reverse"
+                }
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -78,7 +91,7 @@ const ShortSection = ({ data }: ShortSectionProps) => {
     if (!data.short_section_title && !data.short_page) return null;
 
     return (
-        <section ref={sectionRef} className="w-full py-16 bg-[#ECF0F3] flex justify-center items-center">
+        <section ref={sectionRef} className="w-full pt-16 pb-16 bg-[#ECF0F3] relative overflow-hidden flex justify-center items-center">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
                 {/* Main Card */}
                 <div
@@ -137,6 +150,18 @@ const ShortSection = ({ data }: ShortSectionProps) => {
 
                 {/* Decorative Gradient Blob (Optional - keeping simplified background instead) */}
                 {/* <div className="absolute top-[-50%] left-[-20%] w-[60%] h-[150%] bg-gradient-to-br from-[#05668D]/5 to-transparent rounded-full blur-3xl pointer-events-none" /> */}
+            </div>
+            {/* Dynamic Neumorphic Divider */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] rounded-full opacity-50">
+                <div
+                    className="w-full h-full bg-[#ECF0F3]"
+                    style={{
+                        boxShadow: "inset 2px 2px 5px #DCE1E4, inset -2px -2px 5px #FFFFFF"
+                    }}
+                />
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-1 bg-[#DCE1E4] rounded-full opacity-20 divider-anim-short"
+                />
             </div>
         </section>
     );

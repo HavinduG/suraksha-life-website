@@ -83,7 +83,7 @@ const Footer = ({ data }: FooterProps) => {
 
 
     return (
-        <footer className="w-full bg-[#ECF0F3] pt-20 pb-8 border-t border-slate-200">
+        <footer className="w-full bg-[#ECF0F3] pt-20 pb-8">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
 
                 {/* Main Grid Content */}
@@ -157,10 +157,10 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 2: Quick Links (Span 3) */}
                     <div className="lg:col-span-3 lg:pl-12">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-8 uppercase tracking-wide", montserrat.className)}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide", montserrat.className)}>
                             Quick Link
                         </h3>
-                        <ul className="space-y-4">
+                        <ul className="space-y-2 md:space-y-4">
                             {data.quick_links?.map((link, index) => (
                                 <li key={index}>
                                     <Link
@@ -176,10 +176,10 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 3: Support (Span 3) */}
                     <div className="lg:col-span-3">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-8 uppercase tracking-wide", montserrat.className)}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide", montserrat.className)}>
                             Support
                         </h3>
-                        <ul className="space-y-5">
+                        <ul className="space-y-2 md:space-y-5">
                             {data.support?.map((item, index) => (
                                 <li key={index}>
                                     <Link
@@ -195,10 +195,10 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 4: Developers (Span 2) */}
                     <div className="lg:col-span-2">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-8 uppercase tracking-wide", montserrat.className)}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide", montserrat.className)}>
                             Developers
                         </h3>
-                        <ul className="space-y-5">
+                        <ul className="space-y-2 md:space-y-5">
                             {[
                                 "Documentation",
                                 "Authentication",
@@ -221,7 +221,7 @@ const Footer = ({ data }: FooterProps) => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-slate-200 text-center">
+                <div className="pt-8 text-center">
                     <p className={cn("text-slate-500 text-sm font-medium", poppins.className)}>
                         © 2025
                     </p>

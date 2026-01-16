@@ -27,6 +27,7 @@ interface AboutMeProps {
 }
 
 const AboutMe = ({ data }: AboutMeProps) => {
+    const [isExpanded, setIsExpanded] = React.useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const imageContainerRef = useRef<HTMLDivElement>(null);
     const textContainerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +55,19 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     start: "top 80%",
                 },
             });
+
+            // Animate Divider
+            gsap.to(".divider-anim-about", {
+                width: "100%",
+                opacity: 1,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "bottom 95%", // Trigger when bottom of section is near viewport bottom
+                    toggleActions: "play none none reverse"
+                }
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -70,9 +84,9 @@ const AboutMe = ({ data }: AboutMeProps) => {
     return (
         <section
             ref={sectionRef}
-            className="w-full py-20 bg-[#ECF0F3] overflow-hidden"
+            className="w-full pt-20 pb-16 bg-[#ECF0F3] overflow-hidden relative"
         >
-            <div className="container mx-auto px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
                 {/* Left Side: Image with Frame */}
                 <div
                     ref={imageContainerRef}
@@ -98,7 +112,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
                 </div>
 
                 {/* Right Side: Text Content */}
-                <div ref={textContainerRef} className="flex flex-col space-y-6 text-left">
+                <div ref={textContainerRef} className="flex flex-col space-y-6 text-left lg:-ml-18 lg:pr-12">
                     <div className="space-y-2">
                         <h4
                             className={cn(
@@ -122,13 +136,46 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         </h2>
                     </div>
 
-                    <div
+                    {/* Description with Expand/Collapse */}
+                    <div className="relative">
+                        <div
+                            className={cn(
+                                "text-slate-600 text-base leading-relaxed space-y-4 prose max-w-none prose-p:my-2 prose-strong:text-[#3C3E41] overflow-hidden transition-[max-height] duration-500 ease-in-out",
+                                poppins.className,
+                                isExpanded ? "max-h-[1000px]" : "max-h-[150px]"
+                            )}
+                            dangerouslySetInnerHTML={createMarkup(data.doctor_about_description)}
+                        />
+
+                        {/* Gradient Overlay (only when collapsed) */}
+                        <div
+                            className={cn(
+                                "absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#ECF0F3] to-transparent pointer-events-none transition-opacity duration-300",
+                                isExpanded ? "opacity-0" : "opacity-100"
+                            )}
+                        />
+                    </div>
+
+                    {/* Toggle Button */}
+                    <button
+                        onClick={() => setIsExpanded(!isExpanded)}
                         className={cn(
-                            "text-slate-600 text-base leading-relaxed space-y-4 prose max-w-none prose-p:my-2 prose-strong:text-[#3C3E41]",
-                            poppins.className
+                            "text-[#05668D] font-bold text-sm uppercase tracking-wider hover:text-[#02C39A] transition-colors flex items-center gap-2 mt-2 group",
+                            montserrat.className
                         )}
-                        dangerouslySetInnerHTML={createMarkup(data.doctor_about_description)}
-                    />
+                    >
+                        {isExpanded ? (
+                            <>
+                                Show Less
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform"><path d="m18 15-6-6-6 6" /></svg>
+                            </>
+                        ) : (
+                            <>
+                                Read More
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-1 transition-transform"><path d="m6 9 6 6 6-6" /></svg>
+                            </>
+                        )}
+                    </button>
 
                     <div className="pt-4">
                         <Button
@@ -141,6 +188,19 @@ const AboutMe = ({ data }: AboutMeProps) => {
                         </Button>
                     </div>
                 </div>
+            </div>
+
+            {/* Dynamic Neumorphic Divider */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] rounded-full opacity-50">
+                <div
+                    className="w-full h-full bg-[#ECF0F3]"
+                    style={{
+                        boxShadow: "inset 2px 2px 5px #DCE1E4, inset -2px -2px 5px #FFFFFF"
+                    }}
+                />
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-1 bg-[#DCE1E4] rounded-full opacity-20 divider-anim-about"
+                />
             </div>
         </section>
     );

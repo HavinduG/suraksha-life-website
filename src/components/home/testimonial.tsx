@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData } from "@/types/acf";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface TestimonialProps {
     data: ACFData;
@@ -12,6 +16,7 @@ interface TestimonialProps {
 export default function Testimonial({ data }: TestimonialProps) {
     const testimonials = data.feedback_list || [];
     const [currentIndex, setCurrentIndex] = useState(0);
+    const sectionRef = useRef<HTMLElement>(null);
 
     // Auto-advance mechanism (optional, but good for dynamic feel)
     useEffect(() => {
@@ -20,6 +25,8 @@ export default function Testimonial({ data }: TestimonialProps) {
         }, 5000); // 5 seconds
         return () => clearInterval(timer);
     }, [currentIndex, testimonials.length]);
+
+
 
     if (!testimonials.length) return null;
 
@@ -32,7 +39,7 @@ export default function Testimonial({ data }: TestimonialProps) {
     };
 
     return (
-        <section className="py-20 overflow-hidden bg-[#dcf3f3]">
+        <section ref={sectionRef} className="pt-16 pb-16 overflow-hidden bg-[#dcf3f3] relative">
             <div className="container mx-auto px-4">
                 {/* Header */}
                 <div className="text-center mb-16 space-y-2">
@@ -200,6 +207,7 @@ export default function Testimonial({ data }: TestimonialProps) {
                     </button>
                 </div>
             </div>
-        </section>
+
+        </section >
     );
 }
