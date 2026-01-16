@@ -131,8 +131,8 @@ const Hero = ({ data }: HeroProps) => {
             {/* 3. Content Container */}
             <div className="container relative z-20 mx-auto px-4 md:px-6 lg:px-8 h-full flex items-center">
 
-                {/* Text Content */}
-                <div ref={textRef} className="flex flex-col space-y-6 pt-12 lg:pt-0 max-w-4xl">
+                {/* Text Content - Pushed down to start from middle of screen on mobile */}
+                <div ref={textRef} className="flex flex-col space-y-6 pt-[48vh] md:pt-12 lg:pt-0 max-w-4xl">
                     <p className={cn("hero-content-anim text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase", montserrat.className)}>
                         {data.doctor_title}
                     </p>
