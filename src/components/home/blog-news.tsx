@@ -3,7 +3,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData, BlogPost } from "@/types/acf";
@@ -11,15 +12,8 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface BlogNewsProps {
     data: ACFData;
@@ -86,16 +80,16 @@ const BlogNews = ({ data, posts }: BlogNewsProps) => {
                 <div className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.blog_title || "Visit my blog and keep your feedback"}
                     </h5>
                     <h2
                         className={cn(
-                            "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41]",
-                            montserrat.className
+                            "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] font-montserrat"
+
                         )}
                     >
                         {data.blog_section_title || "Latest News"}
@@ -139,10 +133,10 @@ const BlogNews = ({ data, posts }: BlogNewsProps) => {
                                 <div className="px-2 pb-4 space-y-3 flex-1 flex flex-col">
                                     {/* Meta Data */}
                                     <div className="flex items-center justify-between">
-                                        <span className={cn("text-xs font-bold text-[#05668D] uppercase tracking-wider", montserrat.className)}>
+                                        <span className={cn("text-xs font-bold text-[#05668D] uppercase tracking-wider font-montserrat")}>
                                             {post.acf.blog_category || "News"}
                                         </span>
-                                        <span className={cn("text-xs font-medium text-slate-500", poppins.className)}>
+                                        <span className={cn("text-xs font-medium text-slate-500 font-poppins")}>
                                             {post.acf.blog_time || "5 min read"}
                                         </span>
                                     </div>
@@ -150,8 +144,8 @@ const BlogNews = ({ data, posts }: BlogNewsProps) => {
                                     {/* Title */}
                                     <h3
                                         className={cn(
-                                            "text-xl font-bold text-[#3C3E41] leading-tight group-hover:text-[#05668D] transition-colors line-clamp-2",
-                                            montserrat.className
+                                            "text-xl font-bold text-[#3C3E41] leading-tight group-hover:text-[#05668D] transition-colors line-clamp-2 font-montserrat"
+
                                         )}
                                         dangerouslySetInnerHTML={{ __html: post.acf.blog_title || post.title.rendered }}
                                     />

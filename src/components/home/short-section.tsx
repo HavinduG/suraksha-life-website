@@ -5,22 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { Button } from "@/components/ui/button";
 import { ACFData } from "@/types/acf";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500"],
-});
 
 interface ShortSectionProps {
     data: ACFData;
@@ -118,15 +112,15 @@ const ShortSection = ({ data }: ShortSectionProps) => {
                             className="flex-1 p-8 md:p-12 lg:pl-16 flex flex-col items-center lg:items-start text-center lg:text-left z-10 space-y-6 max-w-2xl"
                         >
                             <h2 className={cn(
-                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1E2125] leading-tight",
-                                montserrat.className
+                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1E2125] leading-tight font-montserrat"
+
                             )}>
                                 {data.short_section_title}
                             </h2>
 
                             <p className={cn(
-                                "text-slate-600 text-base md:text-lg font-medium tracking-wide",
-                                poppins.className
+                                "text-slate-600 text-base md:text-lg font-medium tracking-wide font-poppins"
+
                             )}>
                                 {data.short_section_sub_title}
                             </p>

@@ -4,20 +4,17 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { Button } from "@/components/ui/button";
 import { HeroSectionData } from "@/types/acf";
 import { cn } from "@/lib/utils";
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "600"],
-});
+
+// Font imports removed
+
 
 interface HeroProps {
     data: HeroSectionData;
@@ -133,11 +130,11 @@ const Hero = ({ data }: HeroProps) => {
 
                 {/* Text Content - Pushed down to start from middle of screen on mobile */}
                 <div ref={textRef} className="flex flex-col space-y-6 pt-[48vh] md:pt-12 lg:pt-0 max-w-4xl">
-                    <p className={cn("hero-content-anim text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase", montserrat.className)}>
+                    <p className={cn("hero-content-anim text-xs md:text-sm font-bold tracking-[0.2em] text-slate-600 uppercase font-montserrat")}>
                         {data.doctor_title}
                     </p>
 
-                    <h1 className={cn("text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1]", montserrat.className)}>
+                    <h1 className={cn("text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] font-montserrat")}>
                         {/* Line 1: Hi, I'm Vihanga */}
                         {greeting && firstName ? (
                             <span className="text-[#1E2125]">
@@ -161,7 +158,7 @@ const Hero = ({ data }: HeroProps) => {
                         )}
                     </h1>
 
-                    <div className={cn("hero-content-anim flex flex-wrap items-center gap-2 text-sm md:text-base font-bold text-[#3C3E41]", montserrat.className)}>
+                    <div className={cn("hero-content-anim flex flex-wrap items-center gap-2 text-sm md:text-base font-bold text-[#3C3E41] font-montserrat")}>
                         {data.doctor_sub_title.split("|").map((item, index) => (
                             <React.Fragment key={index}>
                                 <span className="whitespace-nowrap">{item.trim()}</span>
@@ -172,7 +169,7 @@ const Hero = ({ data }: HeroProps) => {
                         ))}
                     </div>
 
-                    <p className={cn("hero-content-anim text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-2xl font-medium opacity-90", poppins.className)}>
+                    <p className={cn("hero-content-anim text-[#3C3E41] text-base md:text-lg leading-relaxed max-w-2xl font-medium opacity-90 font-poppins")}>
                         {data.doctor_hero_description}
                     </p>
 

@@ -3,21 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Montserrat, Poppins } from "next/font/google"; // Using fonts consistent with the design
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { ACFData } from "@/types/acf";
 import { cn } from "@/lib/utils";
 import { PUBLIC_WORDPRESS_URL } from "@/lib/api";
 
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["500", "600", "700", "800"], // Added weights
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface FooterProps {
     data: ACFData;
@@ -116,7 +110,7 @@ const Footer = ({ data }: FooterProps) => {
 
                         <div className="flex flex-col space-y-4">
                             {/* Title */}
-                            <p className={cn("text-xs font-bold text-slate-500 uppercase tracking-wider", montserrat.className)}>
+                            <p className={cn("text-xs font-bold text-slate-500 uppercase tracking-wider font-montserrat")}>
                                 {data.footer_title_ || "SURAKSHALIFE ISLANDWIDE CANCER AWARENESS SERIES"}
                             </p>
 
@@ -135,7 +129,7 @@ const Footer = ({ data }: FooterProps) => {
                                                 />
                                             )}
                                         </div>
-                                        <span className={cn("text-sm text-[#525252] font-medium leading-relaxed max-w-[280px]", poppins.className)}>
+                                        <span className={cn("text-sm text-[#525252] font-medium leading-relaxed max-w-[280px] font-poppins")}>
                                             {detail.contact_details}
                                         </span>
                                     </li>
@@ -169,7 +163,7 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 2: Quick Links (Span 4) */}
                     <div className="lg:col-span-4 lg:pl-12">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide", montserrat.className)}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide font-montserrat")}>
                             Quick Link
                         </h3>
                         <ul className="space-y-2 md:space-y-4">
@@ -177,7 +171,7 @@ const Footer = ({ data }: FooterProps) => {
                                 <li key={index}>
                                     <Link
                                         href={formatLink(link.page_link_url, link.page_link_name)}
-                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-[15px] font-medium block", poppins.className)}
+                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-[15px] font-medium block font-poppins")}
                                     >
                                         {link.page_link_name}
                                     </Link>
@@ -188,7 +182,7 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 3: Support (Span 4) */}
                     <div className="lg:col-span-4 lg:pl-12">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide", montserrat.className)}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide font-montserrat")}>
                             Support
                         </h3>
                         <ul className="space-y-2 md:space-y-5">
@@ -196,7 +190,7 @@ const Footer = ({ data }: FooterProps) => {
                                 <li key={index}>
                                     <Link
                                         href={formatLink(item.support_links_url, item.support_link)}
-                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-base font-medium", poppins.className)}
+                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-base font-medium font-poppins")}
                                     >
                                         {item.support_link}
                                     </Link>
@@ -209,7 +203,7 @@ const Footer = ({ data }: FooterProps) => {
 
                 {/* Bottom Bar */}
                 <div className="pt-8 text-center">
-                    <p className={cn("text-slate-500 text-sm font-medium", poppins.className)}>
+                    <p className={cn("text-slate-500 text-sm font-medium font-poppins")}>
                         © 2025
                     </p>
                 </div>

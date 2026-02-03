@@ -3,7 +3,8 @@
 import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData } from "@/types/acf";
@@ -12,15 +13,8 @@ import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "600"],
-});
 
 interface AboutMeProps {
     data: ACFData;
@@ -116,16 +110,16 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     <div className="space-y-2">
                         <h4
                             className={cn(
-                                "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                                montserrat.className
+                                "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                             )}
                         >
                             {data.am_title}
                         </h4>
                         <h2
                             className={cn(
-                                "text-4xl md:text-5xl font-extrabold text-[#3C3E41]",
-                                montserrat.className
+                                "text-4xl md:text-5xl font-extrabold text-[#3C3E41] font-montserrat"
+
                             )}
                         >
                             {/* Doctor Name - assuming format "Dr. Name (MBBS)" */}
@@ -140,8 +134,8 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     <div className="relative">
                         <div
                             className={cn(
-                                "text-slate-600 text-base leading-relaxed space-y-4 prose max-w-none prose-p:my-2 prose-strong:text-[#3C3E41] overflow-hidden transition-[max-height] duration-500 ease-in-out",
-                                poppins.className,
+                                "text-slate-600 text-base leading-relaxed space-y-4 prose max-w-none prose-p:my-2 prose-strong:text-[#3C3E41] overflow-hidden transition-[max-height] duration-500 ease-in-out font-poppins",
+
                                 isExpanded ? "max-h-[1000px]" : "max-h-[150px]"
                             )}
                             dangerouslySetInnerHTML={createMarkup(data.doctor_about_description)}
@@ -160,8 +154,8 @@ const AboutMe = ({ data }: AboutMeProps) => {
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
                         className={cn(
-                            "text-[#05668D] font-bold text-sm uppercase tracking-wider hover:text-[#02C39A] transition-colors flex items-center gap-2 mt-2 group",
-                            montserrat.className
+                            "text-[#05668D] font-bold text-sm uppercase tracking-wider hover:text-[#02C39A] transition-colors flex items-center gap-2 mt-2 group font-montserrat"
+
                         )}
                     >
                         {isExpanded ? (

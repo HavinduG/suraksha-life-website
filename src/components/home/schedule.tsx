@@ -3,7 +3,8 @@
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
@@ -12,15 +13,8 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface ScheduleProps {
     data: ACFData;
@@ -71,8 +65,8 @@ const Schedule = ({ data }: ScheduleProps) => {
                 <div className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.sce_title || "Weekly 7 Days"}
@@ -80,8 +74,8 @@ const Schedule = ({ data }: ScheduleProps) => {
                     <div className="max-w-4xl mx-auto">
                         <h2
                             className={cn(
-                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] leading-tight",
-                                montserrat.className
+                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] leading-tight font-montserrat"
+
                             )}
                         >
                             {data.sce_section_title || "My Regular Schedule"}
@@ -101,10 +95,10 @@ const Schedule = ({ data }: ScheduleProps) => {
                     {/* Left Column: Text & List */}
                     <div className="flex-1 w-full space-y-8">
                         <div>
-                            <p className={cn("text-slate-500 font-medium mb-2", poppins.className)}>
+                            <p className={cn("text-slate-500 font-medium mb-2 font-poppins")}>
                                 {data.sce_sub_topic}
                             </p>
-                            <h3 className={cn("text-3xl md:text-4xl font-extrabold text-[#3C3E41]", montserrat.className)}>
+                            <h3 className={cn("text-3xl md:text-4xl font-extrabold text-[#3C3E41] font-montserrat")}>
                                 {data.sce_main_topic}
                             </h3>
                         </div>
@@ -129,10 +123,10 @@ const Schedule = ({ data }: ScheduleProps) => {
                                         )}
                                     </div>
                                     <div className="space-y-1">
-                                        <p className={cn("text-sm font-bold text-[#3C3E41]", montserrat.className)}>
+                                        <p className={cn("text-sm font-bold text-[#3C3E41] font-montserrat")}>
                                             {item.schedule_text_1}
                                         </p>
-                                        <p className={cn("text-sm md:text-base text-slate-600 font-medium", poppins.className)}>
+                                        <p className={cn("text-sm md:text-base text-slate-600 font-medium font-poppins")}>
                                             {item.schedule_text_2}
                                         </p>
                                         {/* Optional separator line */}

@@ -7,9 +7,8 @@ import { EventItem } from "@/types/acf";
 import { MapPin, Calendar as CalendarIcon } from "lucide-react";
 import CalendarWidget from "./calendar-widget";
 import { cn } from "@/lib/utils";
-import { Montserrat } from "next/font/google";
+// Font imports removed
 
-const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface UpcomingEventsProps {
     events: EventItem[];
@@ -35,7 +34,7 @@ const UpcomingEvents = ({ events, allEvents, onSelectEvent }: UpcomingEventsProp
 
     return (
         <div className="w-full">
-            <h2 className={cn("text-3xl font-bold text-[#3C3E41] mb-8 text-center", montserrat.className)}>
+            <h2 className={cn("text-3xl font-bold text-[#3C3E41] mb-8 text-center font-montserrat")}>
                 Up Coming Events
             </h2>
 

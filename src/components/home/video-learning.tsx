@@ -3,7 +3,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
@@ -13,15 +14,8 @@ import { Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface VideoLearningProps {
     data: ACFData;
@@ -112,21 +106,21 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                 <div className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.v_title || "Subscribe us on youtube"}
                     </h5>
                     <h2
                         className={cn(
-                            "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41]",
-                            montserrat.className
+                            "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] font-montserrat"
+
                         )}
                     >
                         {data.v_section_title || "Video Learning Hub"}
                     </h2>
-                    <p className={cn("text-slate-600 max-w-2xl mx-auto", poppins.className)}>
+                    <p className={cn("text-slate-600 max-w-2xl mx-auto font-poppins")}>
                         {data.v_sub_topic}
                     </p>
                 </div>
@@ -159,7 +153,7 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                                     <Play className="w-16 h-16 text-white opacity-80 group-hover:scale-110 transition-transform" fill="currentColor" />
                                 </div>
                                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                                    <h3 className={cn("text-white text-xl md:text-2xl font-bold", montserrat.className)}
+                                    <h3 className={cn("text-white text-xl md:text-2xl font-bold font-montserrat")}
                                         dangerouslySetInnerHTML={{ __html: featuredVideo.title.rendered }}
                                     />
                                 </div>
@@ -184,7 +178,7 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                                         <Play className="w-10 h-10 text-white opacity-80 group-hover:scale-110 transition-transform" fill="currentColor" />
                                     </div>
                                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                                        <h4 className={cn("text-white text-sm font-bold line-clamp-2", montserrat.className)}
+                                        <h4 className={cn("text-white text-sm font-bold line-clamp-2 font-montserrat")}
                                             dangerouslySetInnerHTML={{ __html: video.title.rendered }}
                                         />
                                     </div>
@@ -268,7 +262,7 @@ const VideoLearning = ({ data, videos, shorts }: VideoLearningProps) => {
                                 {data.button_6 || "Watch More"}
                             </Link>
                         </Button>
-                        <p className={cn("text-xs font-semibold text-slate-500 uppercase tracking-widest", montserrat.className)}>
+                        <p className={cn("text-xs font-semibold text-slate-500 uppercase tracking-widest font-montserrat")}>
                             {data.v_bottom_small_text}
                         </p>
                     </div>

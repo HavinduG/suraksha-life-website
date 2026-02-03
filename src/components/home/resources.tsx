@@ -2,7 +2,8 @@
 
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
-import { Montserrat, Poppins, Noto_Sans_Sinhala } from "next/font/google";
+// import { Montserrat, Poppins, Noto_Sans_Sinhala } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData, ResourceItem } from "@/types/acf";
@@ -11,20 +12,8 @@ import { Download, FileText } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
-
-const notoSanhala = Noto_Sans_Sinhala({
-    subsets: ["sinhala"],
-    weight: ["400", "500", "600", "700"],
-});
 
 
 
@@ -106,16 +95,16 @@ const Resources = ({ data, resources }: ResourcesProps) => {
                 <div className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.res_title || "Read"}
                     </h5>
                     <h2
                         className={cn(
-                            "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41]",
-                            montserrat.className
+                            "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] font-montserrat"
+
                         )}
                     >
                         {data.res_section_title || "Resources"}
@@ -160,15 +149,14 @@ const Resources = ({ data, resources }: ResourcesProps) => {
                                 <div className="flex-1 text-left space-y-1 w-full min-w-0">
                                     <h3
                                         className={cn(
-                                            "text-sm md:text-xl font-bold text-[#3C3E41] group-hover:text-[#05668D] transition-colors line-clamp-2 leading-tight",
-                                            montserrat.className,
-                                            notoSanhala.className
+                                            "text-sm md:text-xl font-bold text-[#3C3E41] group-hover:text-[#05668D] transition-colors line-clamp-2 leading-tight font-montserrat font-sinhala"
+
                                         )}
                                     >
                                         {acf.resource_title || item.title.rendered}
                                     </h3>
                                     <div
-                                        className={cn("text-slate-500 font-medium text-[10px] md:text-sm leading-tight line-clamp-2", poppins.className, notoSanhala.className)}
+                                        className={cn("text-slate-500 font-medium text-[10px] md:text-sm leading-tight line-clamp-2 font-poppins font-sinhala")}
                                         dangerouslySetInnerHTML={{ __html: acf.resource_description || "" }}
                                     />
                                 </div>

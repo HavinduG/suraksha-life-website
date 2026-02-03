@@ -2,7 +2,8 @@
 
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData } from "@/types/acf";
@@ -13,15 +14,8 @@ import { Textarea } from "../ui/textarea";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface ContactSectionProps {
     data: ACFData;
@@ -75,10 +69,10 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                     <div ref={infoRef} className="flex flex-col space-y-12">
                         {/* Intro Text */}
                         <div className="space-y-4">
-                            <h2 className={cn("text-3xl md:text-4xl font-extrabold text-[#05668D]", montserrat.className)}>
+                            <h2 className={cn("text-3xl md:text-4xl font-extrabold text-[#05668D] font-montserrat")}>
                                 Suraksha Life
                             </h2>
-                            <p className={cn("text-slate-600 text-lg", poppins.className)}>
+                            <p className={cn("text-slate-600 text-lg font-poppins")}>
                                 We are dedicated to providing the best care and support. Reach out to us for any inquiries or assistance.
                             </p>
                         </div>
@@ -102,10 +96,10 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                                         )}
                                     </div>
                                     <div>
-                                        <h4 className={cn("text-sm font-bold text-slate-500 uppercase tracking-wide", montserrat.className)}>
+                                        <h4 className={cn("text-sm font-bold text-slate-500 uppercase tracking-wide font-montserrat")}>
                                             {detail.contact_title}
                                         </h4>
-                                        <p className={cn("text-lg font-medium text-[#3C3E41]", poppins.className)}>
+                                        <p className={cn("text-lg font-medium text-[#3C3E41] font-poppins")}>
                                             {detail.contact_details}
                                         </p>
                                     </div>
@@ -158,10 +152,10 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                         className="bg-[linear-gradient(145deg,#E2E8EC,#FFFFFF)] rounded-[30px] p-8 md:p-10 shadow-[5px_5px_15px_#D1D9E6,-5px_-5px_15px_#FFFFFF] border border-slate-100"
                     >
                         <div className="mb-8">
-                            <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-2", montserrat.className)}>
+                            <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-2 font-montserrat")}>
                                 Send us a Message
                             </h3>
-                            <p className={cn("text-slate-500 text-sm", poppins.className)}>
+                            <p className={cn("text-slate-500 text-sm font-poppins")}>
                                 Please complete the form below and a member of our team will connect with you.
                             </p>
                         </div>
@@ -169,13 +163,13 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                         <form className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className={cn("text-sm font-semibold text-slate-700", montserrat.className)}>
+                                    <label className={cn("text-sm font-semibold text-slate-700 font-montserrat")}>
                                         First Name <span className="text-red-500">*</span>
                                     </label>
                                     <Input placeholder="" className="bg-slate-50 border-slate-200 focus:border-[#05668D]" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className={cn("text-sm font-semibold text-slate-700", montserrat.className)}>
+                                    <label className={cn("text-sm font-semibold text-slate-700 font-montserrat")}>
                                         Last Name
                                     </label>
                                     <Input placeholder="" className="bg-slate-50 border-slate-200 focus:border-[#05668D]" />
@@ -183,21 +177,21 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                             </div>
 
                             <div className="space-y-2">
-                                <label className={cn("text-sm font-semibold text-slate-700", montserrat.className)}>
+                                <label className={cn("text-sm font-semibold text-slate-700 font-montserrat")}>
                                     Email <span className="text-red-500">*</span>
                                 </label>
                                 <Input type="email" placeholder="" className="bg-slate-50 border-slate-200 focus:border-[#05668D]" />
                             </div>
 
                             <div className="space-y-2">
-                                <label className={cn("text-sm font-semibold text-slate-700", montserrat.className)}>
+                                <label className={cn("text-sm font-semibold text-slate-700 font-montserrat")}>
                                     Phone
                                 </label>
                                 <Input type="tel" placeholder="" className="bg-slate-50 border-slate-200 focus:border-[#05668D]" />
                             </div>
 
                             <div className="space-y-2">
-                                <label className={cn("text-sm font-semibold text-slate-700", montserrat.className)}>
+                                <label className={cn("text-sm font-semibold text-slate-700 font-montserrat")}>
                                     How did you hear about Suraksha Life? <span className="text-red-500">*</span>
                                 </label>
                                 <select className="w-full h-10 px-3 rounded-md border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-[#05668D] focus:ring-offset-2">
@@ -211,7 +205,7 @@ const ContactSection = ({ data }: ContactSectionProps) => {
                             </div>
 
                             <div className="space-y-2">
-                                <label className={cn("text-sm font-semibold text-slate-700", montserrat.className)}>
+                                <label className={cn("text-sm font-semibold text-slate-700 font-montserrat")}>
                                     Message <span className="text-red-500">*</span>
                                 </label>
                                 <Textarea placeholder="Please let us know who referred you, if applicable..." className="min-h-[120px] bg-slate-50 border-slate-200 focus:border-[#05668D]" />

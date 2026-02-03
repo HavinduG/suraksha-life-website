@@ -3,7 +3,8 @@
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
@@ -12,15 +13,8 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface OnlineChannelingProps {
     data: ACFData;
@@ -81,8 +75,8 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                 <div className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.oc_title || "Online Channeling"}
@@ -90,8 +84,8 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                     <div className="max-w-4xl mx-auto">
                         <h2
                             className={cn(
-                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] leading-tight",
-                                montserrat.className
+                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] leading-tight font-montserrat"
+
                             )}
                         >
                             {data.oc_section_title || "Online Doctor Channeling"}
@@ -129,7 +123,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
 
                         {/* Booking Topic / Intro */}
                         <div
-                            className={cn("text-lg font-bold text-[#3C3E41] leading-snug", montserrat.className)}
+                            className={cn("text-lg font-bold text-[#3C3E41] leading-snug font-montserrat")}
                             dangerouslySetInnerHTML={{ __html: data.booking_topic }}
                         />
 
@@ -150,7 +144,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                                             <div className="w-2 h-2 rounded-full bg-[#05668D]" />
                                         )}
                                     </div>
-                                    <span className={cn("text-slate-600 font-medium", poppins.className)}>
+                                    <span className={cn("text-slate-600 font-medium font-poppins")}>
                                         {item.channeling_text}
                                     </span>
                                 </div>
@@ -159,7 +153,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
 
                         {/* Payment Options */}
                         <div className="py-4 border-t border-slate-200/60">
-                            <h4 className={cn("text-lg font-bold text-[#3C3E41] mb-6", montserrat.className)}>
+                            <h4 className={cn("text-lg font-bold text-[#3C3E41] mb-6 font-montserrat")}>
                                 {data.payment_title || "Payment Options:"}
                             </h4>
                             <div className="space-y-4">
@@ -178,7 +172,7 @@ const OnlineChanneling = ({ data }: OnlineChannelingProps) => {
                                                 <div className="w-4 h-4 bg-slate-300 rounded" />
                                             )}
                                         </div>
-                                        <span className={cn("text-slate-600 font-medium text-sm", poppins.className)}>
+                                        <span className={cn("text-slate-600 font-medium text-sm font-poppins")}>
                                             {item.payment_text}
                                         </span>
                                     </div>

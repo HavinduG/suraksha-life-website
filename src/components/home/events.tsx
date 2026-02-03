@@ -3,7 +3,8 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData, EventItem } from "@/types/acf";
@@ -15,15 +16,8 @@ import EventDetailModal from "./events/event-detail-modal";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface EventsProps {
     data: ACFData;
@@ -112,8 +106,8 @@ const Events = ({ data, events = [] }: EventsProps) => {
                 <div className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.ev_title}
@@ -121,8 +115,8 @@ const Events = ({ data, events = [] }: EventsProps) => {
                     <div className="max-w-4xl mx-auto">
                         <h2
                             className={cn(
-                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] leading-tight",
-                                montserrat.className
+                                "text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] leading-tight font-montserrat"
+
                             )}
                         >
                             {data.ev_section_title}
@@ -155,19 +149,19 @@ const Events = ({ data, events = [] }: EventsProps) => {
                     {/* Right Column: Text Content */}
                     <div ref={textRef} className="flex flex-col space-y-6">
                         {/* Intro Text */}
-                        <div className={cn("text-lg text-slate-600", poppins.className)}>
+                        <div className={cn("text-lg text-slate-600 font-poppins")}>
                             <span className="block mb-2">{data.e_text_1}</span>
-                            <h3 className={cn("text-2xl md:text-3xl font-bold text-[#05668D] mb-1", montserrat.className)}>
+                            <h3 className={cn("text-2xl md:text-3xl font-bold text-[#05668D] mb-1 font-montserrat")}>
                                 {data.e_doctor_name}
                             </h3>
-                            <p className={cn("text-lg font-semibold text-[#3C3E41]", montserrat.className)}>
+                            <p className={cn("text-lg font-semibold text-[#3C3E41] font-montserrat")}>
                                 {data.e_doctor_position}
                             </p>
                         </div>
 
                         {/* Description Text (HTML) */}
                         <div
-                            className={cn("prose prose-slate max-w-none text-slate-600 leading-relaxed", poppins.className)}
+                            className={cn("prose prose-slate max-w-none text-slate-600 leading-relaxed font-poppins")}
                             dangerouslySetInnerHTML={createMarkup(data.e_text_2)}
                         />
 
@@ -177,7 +171,7 @@ const Events = ({ data, events = [] }: EventsProps) => {
                                 <li key={index} className="flex items-start gap-3">
                                     {/* Custom Bullet Icon */}
                                     <span className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full border-2 border-[#05668D]"></span>
-                                    <span className={cn("text-slate-700 font-medium", poppins.className)}>
+                                    <span className={cn("text-slate-700 font-medium font-poppins")}>
                                         {item.bullet_text}
                                     </span>
                                 </li>

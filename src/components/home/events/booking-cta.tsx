@@ -5,9 +5,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ACFData } from "@/types/acf";
 import { cn } from "@/lib/utils";
-import { Montserrat } from "next/font/google";
+// Font imports removed
 
-const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface BookingCTAProps {
     data: ACFData;
@@ -23,7 +22,7 @@ const BookingCTA = ({ data }: BookingCTAProps) => {
             }}
         >
             <div className="space-y-2 text-center md:text-left">
-                <h3 className={cn("text-xl md:text-2xl font-bold text-[#3C3E41]", montserrat.className)}>
+                <h3 className={cn("text-xl md:text-2xl font-bold text-[#3C3E41] font-montserrat")}>
                     {data.ev_booking_title || "Want to host a session?"}
                 </h3>
                 <p className="text-[#05668D] font-bold">

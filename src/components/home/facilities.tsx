@@ -2,7 +2,8 @@
 
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData } from "@/types/acf";
@@ -11,15 +12,8 @@ import { cn } from "@/lib/utils";
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "600"],
-});
 
 interface FacilitiesProps {
     data: ACFData;
@@ -87,16 +81,16 @@ const Facilities = ({ data }: FacilitiesProps) => {
                 <div ref={titleRef} className="lg:col-span-4 flex flex-col space-y-4">
                     <h3
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.sf_title}
                     </h3>
                     <h2
                         className={cn(
-                            "text-4xl md:text-5xl font-extrabold leading-tight text-[#3C3E41]",
-                            montserrat.className
+                            "text-4xl md:text-5xl font-extrabold leading-tight text-[#3C3E41] font-montserrat"
+
                         )}
                     >
                         {/* Split "Special Facilities For Our Patients" for better visual balance if needed */}
@@ -135,16 +129,16 @@ const Facilities = ({ data }: FacilitiesProps) => {
                             <div className="flex flex-col space-y-2">
                                 <h4
                                     className={cn(
-                                        "text-xl font-bold text-[#1E2125]",
-                                        montserrat.className
+                                        "text-xl font-bold text-[#1E2125] font-montserrat"
+
                                     )}
                                 >
                                     {facility.facility_title}
                                 </h4>
                                 <p
                                     className={cn(
-                                        "text-slate-600 text-base leading-relaxed",
-                                        poppins.className
+                                        "text-slate-600 text-base leading-relaxed font-poppins"
+
                                     )}
                                 >
                                     {facility.facility_description}

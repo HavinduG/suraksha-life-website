@@ -2,7 +2,8 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ACFData, ServiceItem } from "@/types/acf";
@@ -10,15 +11,8 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800"],
-});
+// Font imports removed
 
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600"],
-});
 
 interface ServicesProps {
     data: ACFData;
@@ -93,8 +87,8 @@ const Services = ({ data }: ServicesProps) => {
                 <div ref={headerRef} className="text-center mb-16 space-y-4">
                     <h5
                         className={cn(
-                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase",
-                            montserrat.className
+                            "text-sm font-bold tracking-[0.2em] text-[#05668D] uppercase font-montserrat"
+
                         )}
                     >
                         {data.ser_title}
@@ -102,8 +96,8 @@ const Services = ({ data }: ServicesProps) => {
                     <div className="max-w-3xl mx-auto">
                         <h2
                             className={cn(
-                                "text-4xl md:text-5xl font-extrabold text-[#3C3E41] leading-tight",
-                                montserrat.className
+                                "text-4xl md:text-5xl font-extrabold text-[#3C3E41] leading-tight font-montserrat"
+
                             )}
                         >
                             {/* Split title for specific styling if needed, or just render */}
@@ -116,8 +110,8 @@ const Services = ({ data }: ServicesProps) => {
                 <div className="mb-8">
                     <h3
                         className={cn(
-                            "text-xl md:text-2xl font-bold text-[#3C3E41]",
-                            montserrat.className
+                            "text-xl md:text-2xl font-bold text-[#3C3E41] font-montserrat"
+
                         )}
                     >
                         {data.ser_sub_title}
@@ -173,8 +167,8 @@ const Services = ({ data }: ServicesProps) => {
                                 <div className="space-y-4 w-full relative z-10">
                                     <h4
                                         className={cn(
-                                            "text-xl font-bold text-[#3C3E41] group-hover:text-white transition-colors duration-300",
-                                            montserrat.className
+                                            "text-xl font-bold text-[#3C3E41] group-hover:text-white transition-colors duration-300 font-montserrat"
+
                                         )}
                                     >
                                         {service?.acf?.service_title || "Service Title"}
@@ -186,8 +180,8 @@ const Services = ({ data }: ServicesProps) => {
                                             "prose prose-sm max-w-none", // Tailwind prose for HTML content
                                             "prose-ul:list-disc prose-ul:pl-4 prose-ul:my-2",
                                             "prose-li:marker:text-[#3C3E41] group-hover:prose-li:marker:text-white", // Target markers
-                                            "prose-p:my-2",
-                                            poppins.className
+                                            "prose-p:my-2 font-poppins"
+
                                         )}
                                         dangerouslySetInnerHTML={createMarkup(service?.acf?.service_description || "")}
                                     />
@@ -203,7 +197,7 @@ const Services = ({ data }: ServicesProps) => {
 
                 {/* Footer Availability Text */}
                 <div className="text-left md:text-left border-t border-slate-300/50 pt-8">
-                    <p className={cn("text-xs md:text-sm text-slate-500 font-medium italic", poppins.className)}>
+                    <p className={cn("text-xs md:text-sm text-slate-500 font-medium italic font-poppins")}>
                         {data.service_available_time}
                     </p>
                 </div>

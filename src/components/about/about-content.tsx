@@ -3,7 +3,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { AboutPageData } from "@/types/acf";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
+
 import { cn } from "@/lib/utils";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,8 +12,8 @@ import { ChevronRight, ChevronLeft, Quote } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700", "800"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600"] });
+// Font imports removed
+
 
 interface AboutContentProps {
     data: AboutPageData;
@@ -108,11 +109,11 @@ export default function AboutContent({ data }: AboutContentProps) {
 
                         {/* Right: Intro Details */}
                         <div className="space-y-8 reveal-section">
-                            <h1 className={cn("text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#3C3E41] leading-tight", montserrat.className)}>
+                            <h1 className={cn("text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#3C3E41] leading-tight font-montserrat")}>
                                 {data.doctor_name}
                             </h1>
                             <div
-                                className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed", poppins.className)}
+                                className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed font-poppins")}
                                 dangerouslySetInnerHTML={{ __html: data.doctor_about_in_about_page }}
                             />
                         </div>
@@ -126,22 +127,22 @@ export default function AboutContent({ data }: AboutContentProps) {
 
                     {/* Clinical Focus */}
                     <div className="reveal-section border-l-4 border-[#05668D] pl-6 md:pl-10">
-                        <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-6 uppercase tracking-wide", montserrat.className)}>
+                        <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-6 uppercase tracking-wide font-montserrat")}>
                             {data.clinical_and_community_focus_sub_heading}
                         </h2>
                         <div
-                            className={cn("prose prose-lg prose-slate max-w-none text-slate-600", poppins.className)}
+                            className={cn("prose prose-lg prose-slate max-w-none text-slate-600 font-poppins")}
                             dangerouslySetInnerHTML={{ __html: data.clinical_and_community_focus_description }}
                         />
                     </div>
 
                     {/* Education */}
                     <div className="reveal-section border-l-4 border-[#02C39A] pl-6 md:pl-10">
-                        <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-6 uppercase tracking-wide", montserrat.className)}>
+                        <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-6 uppercase tracking-wide font-montserrat")}>
                             {data["education_&_professional_background_sub_heading"]}
                         </h2>
                         <div
-                            className={cn("prose prose-lg prose-slate max-w-none text-slate-600", poppins.className)}
+                            className={cn("prose prose-lg prose-slate max-w-none text-slate-600 font-poppins")}
                             dangerouslySetInnerHTML={{ __html: data["education_&_professional_background_description"] }}
                         />
                     </div>
@@ -150,11 +151,11 @@ export default function AboutContent({ data }: AboutContentProps) {
                     <div className="reveal-section bg-slate-50 p-8 md:p-12 rounded-3xl relative overflow-hidden">
                         <Quote className="absolute top-6 right-8 text-slate-200 w-24 h-24 md:w-32 md:h-32 -rotate-12" />
                         <div className="relative z-10">
-                            <h2 className={cn("text-2xl md:text-3xl font-bold text-[#05668D] mb-6 uppercase tracking-wide", montserrat.className)}>
+                            <h2 className={cn("text-2xl md:text-3xl font-bold text-[#05668D] mb-6 uppercase tracking-wide font-montserrat")}>
                                 {data.professional_philosophy_sub_heading}
                             </h2>
                             <div
-                                className={cn("prose prose-lg prose-slate max-w-none text-slate-700 italic font-medium", poppins.className)}
+                                className={cn("prose prose-lg prose-slate max-w-none text-slate-700 italic font-medium font-poppins")}
                                 dangerouslySetInnerHTML={{ __html: data.professional_philosophy_description }}
                             />
                         </div>
@@ -166,11 +167,11 @@ export default function AboutContent({ data }: AboutContentProps) {
             {/* 3. Suraksha Life Section */}
             <section className="py-20 px-4 md:px-8 bg-[#05668D] text-white">
                 <div className="container mx-auto max-w-5xl text-center reveal-section">
-                    <h2 className={cn("text-3xl md:text-5xl font-extrabold mb-8", montserrat.className)}>
+                    <h2 className={cn("text-3xl md:text-5xl font-extrabold mb-8 font-montserrat")}>
                         {data.about_suraksha_life_title}
                     </h2>
                     <div
-                        className={cn("prose prose-xl prose-invert max-w-none leading-relaxed opacity-90 mx-auto", poppins.className)}
+                        className={cn("prose prose-xl prose-invert max-w-none leading-relaxed opacity-90 mx-auto font-poppins")}
                         dangerouslySetInnerHTML={{ __html: data.suraksha_life_description_ }}
                     />
                 </div>
@@ -182,22 +183,22 @@ export default function AboutContent({ data }: AboutContentProps) {
 
                     {/* Core Focus */}
                     <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg reveal-section">
-                        <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-6", montserrat.className)}>
+                        <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-6 font-montserrat")}>
                             {data.our_core_focus_areas_sub_heading}
                         </h3>
                         <div
-                            className={cn("prose prose-slate max-w-none text-slate-600", poppins.className)}
+                            className={cn("prose prose-slate max-w-none text-slate-600 font-poppins")}
                             dangerouslySetInnerHTML={{ __html: data.our_core_focus_areas_description }}
                         />
                     </div>
 
                     {/* Impact */}
                     <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg reveal-section">
-                        <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-6", montserrat.className)}>
+                        <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-6 font-montserrat")}>
                             {data.our_impact_sub_heading}
                         </h3>
                         <div
-                            className={cn("prose prose-slate max-w-none text-slate-600", poppins.className)}
+                            className={cn("prose prose-slate max-w-none text-slate-600 font-poppins")}
                             dangerouslySetInnerHTML={{ __html: data.our_impact_description }}
                         />
                     </div>
@@ -207,12 +208,12 @@ export default function AboutContent({ data }: AboutContentProps) {
             {/* 5. Commitment */}
             <section className="py-20 px-4 md:px-8 bg-white text-center">
                 <div className="container mx-auto max-w-3xl reveal-section">
-                    <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-8 uppercase tracking-wide", montserrat.className)}>
+                    <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-8 uppercase tracking-wide font-montserrat")}>
                         {data.our_commitment}
                     </h2>
                     <div className="h-1 w-20 bg-[#02C39A] mx-auto mb-8 rounded-full"></div>
                     <div
-                        className={cn("prose prose-lg prose-slate max-w-none text-slate-600 mx-auto", poppins.className)}
+                        className={cn("prose prose-lg prose-slate max-w-none text-slate-600 mx-auto font-poppins")}
                         dangerouslySetInnerHTML={{ __html: data.our_commitment_description }}
                     />
                 </div>

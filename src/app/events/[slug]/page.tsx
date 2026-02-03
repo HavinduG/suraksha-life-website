@@ -10,10 +10,11 @@ import Link from "next/link";
 import { getEventBySlug, getEventsData } from "@/lib/api";
 import { EventItem } from "@/types/acf";
 import { cn } from "@/lib/utils";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
 
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600"] });
+
+// Font imports removed
+
 
 export default function EventPage() {
     const params = useParams();
@@ -122,18 +123,18 @@ export default function EventPage() {
                     <div className="p-6 md:p-12">
                         {/* Title & Meta */}
                         <div className="mb-10 border-b border-slate-100 pb-10">
-                            <h1 className={cn("text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] mb-6 leading-tight", montserrat.className)}>
+                            <h1 className={cn("text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] mb-6 leading-tight font-montserrat")}>
                                 {event.acf.event_name}
                             </h1>
 
                             <div className="flex flex-wrap gap-4 text-sm md:text-base text-slate-600">
                                 <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
                                     <MapPin size={18} className="text-[#05668D]" />
-                                    <span className={poppins.className}>{event.acf.event_location}</span>
+                                    <span className={"font-poppins"}>{event.acf.event_location}</span>
                                 </div>
                                 <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
                                     <Clock size={18} className="text-[#05668D]" />
-                                    <span className={poppins.className}>
+                                    <span className={"font-poppins"}>
                                         {format(new Date(event.acf.event_date_and_time), "eeee, h:mm a")}
                                     </span>
                                 </div>
@@ -141,7 +142,7 @@ export default function EventPage() {
                         </div>
 
                         {/* Rich Text Body */}
-                        <div className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed", poppins.className)}>
+                        <div className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed font-poppins")}>
                             {/* Detailed Article Content */}
                             {event.acf.past_events_details_more && (
                                 <div dangerouslySetInnerHTML={{ __html: event.acf.past_events_details_more }} />
@@ -156,7 +157,7 @@ export default function EventPage() {
                         {/* Image Gallery Grid */}
                         {event.acf.past_event_image && event.acf.past_event_image.length > 0 && (
                             <div className="mt-16 pt-10 border-t border-slate-100">
-                                <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-8", montserrat.className)}>Event Gallery</h3>
+                                <h3 className={cn("text-2xl font-bold text-[#3C3E41] mb-8 font-montserrat")}>Event Gallery</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {event.acf.past_event_image.map((item, index) => (
                                         <div key={index} className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">

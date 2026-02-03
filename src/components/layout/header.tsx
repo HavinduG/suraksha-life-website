@@ -4,17 +4,16 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { Montserrat } from "next/font/google";
+// import { Montserrat } from "next/font/google"; // Removed
+
 import { Button } from "@/components/ui/button";
 import { ACFData } from "@/types/acf";
 import { cn } from "@/lib/utils";
 import { PUBLIC_WORDPRESS_URL } from "@/lib/api";
 
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["400", "700", "800"],
-});
+// Font imports removed
+
 
 interface HeaderProps {
     data: ACFData;
@@ -162,8 +161,8 @@ const Header = ({ data }: HeaderProps) => {
                                         "after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full after:bg-[#05668D] after:transition-transform after:duration-300 after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left",
                                         isActive(item.tab_link, item.nav_bar_tab_name)
                                             ? "text-[#05668D] font-extrabold scale-105"
-                                            : "text-slate-600 hover:text-[#05668D] hover:font-extrabold hover:scale-105",
-                                        montserrat.className
+                                            : "text-slate-600 hover:text-[#05668D] hover:font-extrabold hover:scale-105 font-montserrat"
+
                                     )}
                                 >
                                     {item.nav_bar_tab_name}
@@ -222,7 +221,7 @@ const Header = ({ data }: HeaderProps) => {
                     >
                         {/* Drawer Header */}
                         <div className="flex items-center justify-between px-6 py-6 border-b border-slate-100 bg-[#ECF0F3]/50">
-                            <span className={cn("text-lg font-bold text-[#05668D] uppercase tracking-wide", montserrat.className)}>
+                            <span className={cn("text-lg font-bold text-[#05668D] uppercase tracking-wide font-montserrat")}>
                                 Menu
                             </span>
                             <button

@@ -5,11 +5,9 @@ import Image from "next/image";
 import { EventItem } from "@/types/acf";
 import { Calendar as CalendarIcon, MapPin } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Montserrat } from "next/font/google";
+import { cn } from "@/lib/utils";// Font imports removed
 import { format } from "date-fns";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface PastEventsProps {
     events: EventItem[];
@@ -37,7 +35,7 @@ const PastEvents = ({ events, title, onSelectEvent }: PastEventsProps) => {
 
     return (
         <div className="w-full mt-20">
-            <h2 className={cn("text-2xl font-bold text-[#3C3E41] mb-8", montserrat.className)}>
+            <h2 className={cn("text-2xl font-bold text-[#3C3E41] mb-8 font-montserrat")}>
                 {title || "Recent Past Events"}
             </h2>
 

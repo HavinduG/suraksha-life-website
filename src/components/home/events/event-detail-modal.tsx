@@ -7,10 +7,8 @@ import { format } from "date-fns";
 import { gsap } from "gsap";
 import { EventItem } from "@/types/acf";
 import { cn } from "@/lib/utils";
-import { Montserrat, Poppins } from "next/font/google";
+// Font imports removed
 
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600"] });
 
 interface EventDetailModalProps {
     event: EventItem;
@@ -122,7 +120,7 @@ const EventDetailModal = ({ event, onClose }: EventDetailModalProps) => {
                 {/* Content Body (Scrollable) */}
                 <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
                     <div className="mb-6">
-                        <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-2", montserrat.className)}>
+                        <h2 className={cn("text-2xl md:text-3xl font-bold text-[#3C3E41] mb-2 font-montserrat")}>
                             {event.acf.event_name}
                         </h2>
 
@@ -130,11 +128,11 @@ const EventDetailModal = ({ event, onClose }: EventDetailModalProps) => {
                         <div className="flex flex-wrap gap-4 text-sm text-slate-600 mt-3">
                             <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
                                 <MapPin size={16} className="text-[#05668D]" />
-                                <span className={poppins.className}>{event.acf.event_location}</span>
+                                <span className={"font-poppins"}>{event.acf.event_location}</span>
                             </div>
                             <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
                                 <Clock size={16} className="text-[#05668D]" />
-                                <span className={poppins.className}>
+                                <span className={"font-poppins"}>
                                     {format(new Date(event.acf.event_date_and_time), "eeee, h:mm a")}
                                 </span>
                             </div>
@@ -145,7 +143,7 @@ const EventDetailModal = ({ event, onClose }: EventDetailModalProps) => {
                     <div className="h-px w-full bg-slate-100 mb-6"></div>
 
                     {/* Description Content */}
-                    <div className={cn("prose prose-slate max-w-none text-slate-600 leading-relaxed", poppins.className)}>
+                    <div className={cn("prose prose-slate max-w-none text-slate-600 leading-relaxed font-poppins")}>
                         {/* Check if we have the "Detailed" content for Past Events */}
                         {event.acf.past_events_details_more ? (
                             <>

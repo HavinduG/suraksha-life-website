@@ -9,10 +9,11 @@ import Link from "next/link";
 import { getPostBySlug, getBlogData } from "@/lib/api";
 import { BlogPost } from "@/types/acf";
 import { cn } from "@/lib/utils";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
 
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600"] });
+
+// Font imports removed
+
 
 export default function BlogDetailPage() {
     const params = useParams();
@@ -111,8 +112,8 @@ export default function BlogDetailPage() {
                         {/* Category Badge Overlay */}
                         <div className="absolute top-6 left-6">
                             <span className={cn(
-                                "bg-[#05668D] text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider shadow-lg",
-                                montserrat.className
+                                "bg-[#05668D] text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider shadow-lg font-montserrat"
+
                             )}>
                                 {post.acf.blog_category || "News"}
                             </span>
@@ -124,7 +125,7 @@ export default function BlogDetailPage() {
                         {/* Title & Meta */}
                         <div className="mb-10 border-b border-slate-100 pb-10">
                             <h1
-                                className={cn("text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] mb-6 leading-tight", montserrat.className)}
+                                className={cn("text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#3C3E41] mb-6 leading-tight font-montserrat")}
                                 dangerouslySetInnerHTML={{ __html: post.acf.blog_title || post.title.rendered }}
                             />
 
@@ -132,12 +133,12 @@ export default function BlogDetailPage() {
                                 {post.acf.blog_time && (
                                     <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
                                         <Clock size={18} className="text-[#05668D]" />
-                                        <span className={poppins.className}>{post.acf.blog_time}</span>
+                                        <span className={"font-poppins"}>{post.acf.blog_time}</span>
                                     </div>
                                 )}
                                 <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
                                     <CalendarIcon size={18} className="text-[#05668D]" />
-                                    <span className={poppins.className}>
+                                    <span className={"font-poppins"}>
                                         {format(new Date(post.date), "MMMM d, yyyy")}
                                     </span>
                                 </div>
@@ -145,7 +146,7 @@ export default function BlogDetailPage() {
                         </div>
 
                         {/* Rich Text Body */}
-                        <div className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed", poppins.className)}>
+                        <div className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed font-poppins")}>
                             <div dangerouslySetInnerHTML={{ __html: post.acf.blog_description || post.title.rendered }} />
                         </div>
                     </div>

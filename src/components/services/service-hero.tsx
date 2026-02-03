@@ -2,14 +2,13 @@
 
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { Montserrat } from "next/font/google";
+// import { Montserrat } from "next/font/google"; // Removed
+
 import { cn } from "@/lib/utils";
 import { Stethoscope, Pill, HeartPulse, Activity } from "lucide-react"; // Medical icons
 
-const montserrat = Montserrat({
-    subsets: ["latin"],
-    weight: ["700", "800"],
-});
+// Font imports removed
+
 
 export default function ServiceHero() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -138,8 +137,8 @@ export default function ServiceHero() {
                 <h1
                     ref={titleRef}
                     className={cn(
-                        "text-5xl md:text-8xl font-extrabold text-[#05668D] mb-6 tracking-tight",
-                        montserrat.className
+                        "text-5xl md:text-8xl font-extrabold text-[#05668D] mb-6 tracking-tight font-montserrat"
+
                     )}
                     style={{ textShadow: "0 4px 20px rgba(5,102,141,0.15)" }}
                 >

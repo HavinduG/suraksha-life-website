@@ -6,10 +6,11 @@ import { X, Calendar as CalendarIcon, Clock, Tag, ChevronLeft, ChevronRight } fr
 import { gsap } from "gsap";
 import { BlogPost } from "@/types/acf";
 import { cn } from "@/lib/utils";
-import { Montserrat, Poppins } from "next/font/google";
+// import { Montserrat, Poppins } from "next/font/google"; // Removed
 
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600"] });
+
+// Font imports removed
+
 
 interface BlogDetailModalProps {
     post: BlogPost;
@@ -135,8 +136,8 @@ const BlogDetailModal = ({ post, onClose, onNext, onPrev, hasNext, hasPrev }: Bl
                     {/* Category Badge */}
                     <div className="absolute top-6 left-6">
                         <span className={cn(
-                            "bg-[#05668D] text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider shadow-lg",
-                            montserrat.className
+                            "bg-[#05668D] text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider shadow-lg font-montserrat"
+
                         )}>
                             {post.acf.blog_category || "News"}
                         </span>
@@ -148,7 +149,7 @@ const BlogDetailModal = ({ post, onClose, onNext, onPrev, hasNext, hasPrev }: Bl
                     <div className="mb-8 border-b border-slate-100 pb-8">
                         {/* Title */}
                         <h2
-                            className={cn("text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#3C3E41] mb-6 leading-tight", montserrat.className)}
+                            className={cn("text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#3C3E41] mb-6 leading-tight font-montserrat")}
                             dangerouslySetInnerHTML={{ __html: post.acf.blog_title || post.title.rendered }}
                         />
 
@@ -157,7 +158,7 @@ const BlogDetailModal = ({ post, onClose, onNext, onPrev, hasNext, hasPrev }: Bl
                             {post.acf.blog_time && (
                                 <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
                                     <Clock size={16} className="text-[#05668D]" />
-                                    <span className={poppins.className}>{post.acf.blog_time}</span>
+                                    <span className={"font-poppins"}>{post.acf.blog_time}</span>
                                 </div>
                             )}
 
@@ -167,7 +168,7 @@ const BlogDetailModal = ({ post, onClose, onNext, onPrev, hasNext, hasPrev }: Bl
                     </div>
 
                     {/* Full Description */}
-                    <div className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed", poppins.className)}>
+                    <div className={cn("prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed font-poppins")}>
                         {/* Using blog_description if available, fallback to something else if needed */}
                         <div dangerouslySetInnerHTML={{ __html: post.acf.blog_description || "No content available." }} />
                     </div>
