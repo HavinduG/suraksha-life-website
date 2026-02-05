@@ -15,8 +15,10 @@ export const metadata: Metadata = {
 export default async function PrivacyPolicyPage() {
     let pageData: ACFData | null = null;
     let privacyData: any = null;
+    let loadError: string | null = null;
 
     try {
+        // Fetch data in parallel
         const [homeRes, privacyRes] = await Promise.allSettled([
             getPageData(),
             getPrivacyPolicyData()
@@ -24,6 +26,9 @@ export default async function PrivacyPolicyPage() {
 
         if (homeRes.status === 'fulfilled') {
             pageData = homeRes.value;
+        } else {
+            console.error("Home Page Data Fetch Error:", homeRes.reason);
+            loadError = `Site Config Error: ${homeRes.reason?.message || "Unknown error"}`;
         }
 
         if (privacyRes.status === 'fulfilled') {
@@ -32,11 +37,11 @@ export default async function PrivacyPolicyPage() {
             console.error("Privacy Policy Fetch Error:", privacyRes.reason);
         }
 
-    } catch (e) {
+    } catch (e: any) {
         console.error("Error loading data", e);
+        loadError = `Critical Error: ${e?.message || JSON.stringify(e)}`;
     }
 
-    // Fallback if home page data fails (critical for header/footer)
     // Fallback if home page data fails (critical for header/footer)
     if (!pageData) {
         console.warn("Using fallback site configuration due to API failure.");
@@ -50,7 +55,7 @@ export default async function PrivacyPolicyPage() {
                 { nav_bar_tab_name: "Blog", tab_link: "/blog" },
                 { nav_bar_tab_name: "Contact", tab_link: "/contact" },
             ],
-            header_logo: null, // Will use default in Header
+            header_logo: null,
             button_header: "Book An Appointment",
             button_header_link: "/contact",
             footer_logo: null,
@@ -77,10 +82,21 @@ export default async function PrivacyPolicyPage() {
         } as unknown as ACFData;
     }
 
+    // Ensure nav_bar is an array to prevent Header crashes
+    if (!Array.isArray(pageData.nav_bar)) {
+        pageData.nav_bar = [];
+    }
+
     return (
         <main className="min-h-screen bg-[#F8FAFC]">
             {/* Nav bar is visible on top */}
             <Header data={pageData} />
+
+            {loadError && (
+                <div className="bg-red-50 text-red-600 p-4 text-center border-b border-red-200">
+                    <p className="text-sm font-semibold">Debug: {loadError}</p>
+                </div>
+            )}
 
             {privacyData ? (
                 <PrivacyPolicyContent

@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 export default async function RefundPolicyPage() {
     let pageData: ACFData | null = null;
     let refundData: any = null;
+    let loadError: string | null = null;
 
     try {
         const [homeRes, refundRes] = await Promise.allSettled([
@@ -24,6 +25,9 @@ export default async function RefundPolicyPage() {
 
         if (homeRes.status === 'fulfilled') {
             pageData = homeRes.value;
+        } else {
+            console.error("Home Page Data Fetch Error:", homeRes.reason);
+            loadError = `Site Config Error: ${homeRes.reason?.message || "Unknown error"}`;
         }
 
         if (refundRes.status === 'fulfilled') {
@@ -32,12 +36,11 @@ export default async function RefundPolicyPage() {
             console.error("Refund Policy Fetch Error:", refundRes.reason);
         }
 
-    } catch (e) {
+    } catch (e: any) {
         console.error("Error loading data", e);
+        loadError = `Critical Error: ${e?.message || JSON.stringify(e)}`;
     }
 
-    // Fallback if home page data fails (critical for header/footer)
-    // Fallback if home page data fails (critical for header/footer)
     if (!pageData) {
         console.warn("Using fallback site configuration for Refund Policy due to API failure.");
         pageData = {
@@ -77,10 +80,20 @@ export default async function RefundPolicyPage() {
         } as unknown as ACFData;
     }
 
+    // Ensure nav_bar is an array
+    if (!Array.isArray(pageData.nav_bar)) {
+        pageData.nav_bar = [];
+    }
+
     return (
         <main className="min-h-screen bg-[#F8FAFC]">
-            {/* Nav bar is visible on top */}
             <Header data={pageData} />
+
+            {loadError && (
+                <div className="bg-red-50 text-red-600 p-4 text-center border-b border-red-200">
+                    <p className="text-sm font-semibold">Debug: {loadError}</p>
+                </div>
+            )}
 
             {refundData ? (
                 <RefundContent
