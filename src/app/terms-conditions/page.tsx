@@ -34,6 +34,7 @@ export default async function TermsPage() {
             termsData = termsRes.value;
         } else {
             console.error("Terms Fetch Error:", termsRes.reason);
+            loadError = `Terms Content Error: ${termsRes.reason?.message || JSON.stringify(termsRes.reason)}`;
         }
 
     } catch (e: any) {

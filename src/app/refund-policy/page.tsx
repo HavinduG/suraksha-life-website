@@ -34,6 +34,7 @@ export default async function RefundPolicyPage() {
             refundData = refundRes.value;
         } else {
             console.error("Refund Policy Fetch Error:", refundRes.reason);
+            loadError = `Refund Content Error: ${refundRes.reason?.message || JSON.stringify(refundRes.reason)}`;
         }
 
     } catch (e: any) {

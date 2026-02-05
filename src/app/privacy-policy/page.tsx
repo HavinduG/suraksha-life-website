@@ -35,6 +35,7 @@ export default async function PrivacyPolicyPage() {
             privacyData = privacyRes.value;
         } else {
             console.error("Privacy Policy Fetch Error:", privacyRes.reason);
+            loadError = `Privacy Content Error: ${privacyRes.reason?.message || JSON.stringify(privacyRes.reason)}`;
         }
 
     } catch (e: any) {
