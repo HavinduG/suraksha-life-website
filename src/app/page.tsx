@@ -88,42 +88,15 @@ export default async function Home() {
   }
 
   if (!pageData) {
-    console.warn("Using fallback site configuration due to API failure.");
-    pageData = {
-      title: { rendered: "Suraksha Life" },
-      content: { rendered: "" },
-      nav_bar: [
-        { nav_bar_tab_name: "Home", tab_link: "/" },
-        { nav_bar_tab_name: "Services", tab_link: "/services" },
-        { nav_bar_tab_name: "Events", tab_link: "/events" },
-        { nav_bar_tab_name: "Blog", tab_link: "/blog" },
-        { nav_bar_tab_name: "Contact", tab_link: "/contact" },
-      ],
-      header_logo: null,
-      button_header: "Book An Appointment",
-      button_header_link: "/contact",
-      footer_logo: null,
-      footer_description: "Suraksha Life - Islandwide cancer awareness series.",
-      social_media_details: [],
-      contact_info: {
-        mobile_number: "",
-        email_address: "",
-        location_address: "",
-        location_map_link: ""
-      },
-      hero: [],
-      facilities: [],
-      about_me: [],
-      services_list: [],
-      events_list: [],
-      schedule: [],
-      online_channeling: [],
-      blog_news: [],
-      video_learning: [],
-      resources_list: [],
-      testimonial: [],
-      short_section: []
-    } as unknown as ACFData;
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-white">
+        <div className="text-center space-y-4">
+          <h1 className="text-2xl font-bold text-red-500">Error Loading Data</h1>
+          <p className="text-slate-600">{errorMsg}</p>
+          <p className="text-sm text-slate-400">Attempted to fetch from: {process.env.NEXT_PUBLIC_WORDPRESS_URL}</p>
+        </div>
+      </main>
+    )
   }
 
   // Inject the fetched services custom post types into the pageData
