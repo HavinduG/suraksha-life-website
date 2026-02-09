@@ -144,7 +144,7 @@ const Schedule = ({ data }: ScheduleProps) => {
                                 asChild
                                 className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-bold py-6 px-8 rounded-md shadow-md transition-transform hover:scale-105"
                             >
-                                <Link href={data.button_4_link || ""}>
+                                <Link href={data.button_4_link || "/pricing"}>
                                     {data.button_4 || "Book An Appointment"}
                                 </Link>
                             </Button>

@@ -130,7 +130,7 @@ const ShortSection = ({ data }: ShortSectionProps) => {
                                     asChild
                                     className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-bold py-7 px-10 rounded-md shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
                                 >
-                                    <Link href={data.button_7_link || "#"}>
+                                    <Link href={data.button_7_link || "/pricing"}>
                                         {data.button_7 || "Make an Appointment"}
                                     </Link>
                                 </Button>

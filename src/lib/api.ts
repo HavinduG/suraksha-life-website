@@ -269,3 +269,21 @@ export async function getTermsData() {
     const page = await res.json();
     return sanitizeData(page);
 }
+
+export async function getPricingServicesData() {
+    if (!WORDPRESS_API_URL) {
+        throw new Error("NEXT_PUBLIC_WORDPRESS_URL is not defined");
+    }
+
+    const res = await fetch(`${WORDPRESS_API_URL}/wp-json/wp/v2/pricing-service?_embed&per_page=100`, {
+        next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+        console.warn("Failed to fetch pricing service data");
+        return [];
+    }
+
+    const services = await res.json();
+    return sanitizeData(services);
+}

@@ -332,3 +332,18 @@ export interface TestimonialItem {
   user_feedback_description: string;
   star_range: string;
 }
+
+export interface PricingServiceItem {
+  id: number;
+  slug: string;
+  title: {
+    rendered: string;
+  };
+  acf: {
+    medical_service: string;
+    medical_service_details: string; // HTML content
+    service_price: string;
+    button_buy: string;
+    button_buy_link: string;
+  };
+}

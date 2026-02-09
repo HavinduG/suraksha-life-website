@@ -185,7 +185,7 @@ const Header = ({ data }: HeaderProps) => {
                             asChild
                             className="bg-gradient-to-r from-[#05668D] to-[#02C39A] hover:opacity-90 text-white font-semibold py-5 px-6 rounded-md shadow-md transition-transform hover:scale-105"
                         >
-                            <Link href={data.button_header_link || "#"}>
+                            <Link href={data.button_header_link || "/pricing"}>
                                 {data.button_header || "Book An Appointment"}
                             </Link>
                         </Button>
@@ -261,7 +261,7 @@ const Header = ({ data }: HeaderProps) => {
                                 asChild
                                 className="bg-gradient-to-r from-[#05668D] to-[#02C39A] text-white font-bold text-lg py-6 w-full shadow-lg rounded-xl hover:shadow-xl hover:scale-[1.02] transition-all mb-4"
                             >
-                                <Link href={data.button_header_link || "#"}>
+                                <Link href={data.button_header_link || "/pricing"}>
                                     {data.button_header || "Book An Appointment"}
                                 </Link>
                             </Button>
