@@ -2,7 +2,7 @@ import { getPageData, getTermsData } from "@/lib/api";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import TermsContent from "@/components/terms-conditions/terms-content";
-import { ACFData } from "@/types/acf";
+import { ACFData, WordPressPage } from "@/types/acf";
 import { Metadata } from "next";
 
 export const revalidate = 60;
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function TermsPage() {
     let pageData: ACFData | null = null;
-    let termsData: any = null;
+    let termsData: WordPressPage | null = null;
 
     try {
         const [homeRes, termsRes] = await Promise.allSettled([

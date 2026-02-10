@@ -1,12 +1,17 @@
-import React from 'react';
 import { getPricingServicesData } from '@/lib/api';
 import PricingCard from '@/components/pricing/pricing-card';
 import { Metadata } from 'next';
+import { PricingServiceItem } from '@/types/acf';
 
 export const metadata: Metadata = {
     title: 'Pricing & Packages | Suraksha Life',
     description: 'Choose the best wellness package for you and your family.',
 };
+
+// Force dynamic rendering - don't try to statically generate this page at build time
+// This prevents build failures when the WordPress API is slow or unavailable
+export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Revalidate every 60 seconds
 
 export default async function PricingPage() {
     const pricingData = await getPricingServicesData();
@@ -31,7 +36,7 @@ export default async function PricingPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                    {pricingData.map((item: any, index: number) => (
+                    {pricingData.map((item: PricingServiceItem, index: number) => (
                         <PricingCard key={item.id} item={item} index={index} />
                     ))}
                 </div>

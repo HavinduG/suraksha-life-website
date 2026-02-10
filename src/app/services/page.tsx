@@ -3,7 +3,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ServiceHero from "@/components/services/service-hero";
 import Services from "@/components/home/services";
-import { ACFData } from "@/types/acf";
+import { ACFData, ServiceItem } from "@/types/acf";
 import { getPageData, getServicesData } from "@/lib/api";
 
 export const metadata = {
@@ -13,7 +13,7 @@ export const metadata = {
 
 export default async function ServicesPage() {
     let pageData: ACFData | null = null;
-    let servicesData: any[] = [];
+    let servicesData: ServiceItem[] = [];
     let errorMsg = "";
 
     try {

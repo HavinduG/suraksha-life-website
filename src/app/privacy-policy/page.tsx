@@ -2,7 +2,7 @@ import { getPageData, getPrivacyPolicyData } from "@/lib/api";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import PrivacyPolicyContent from "@/components/privacy-policy/privacy-content";
-import { ACFData } from "@/types/acf";
+import { ACFData, WordPressPage } from "@/types/acf";
 import { Metadata } from "next";
 
 export const revalidate = 60;
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function PrivacyPolicyPage() {
     let pageData: ACFData | null = null;
-    let privacyData: any = null;
+    let privacyData: WordPressPage | null = null;
 
     try {
         const [homeRes, privacyRes] = await Promise.allSettled([

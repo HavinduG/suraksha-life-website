@@ -213,7 +213,7 @@ export default function AboutContent({ data }: AboutContentProps) {
                     </h2>
                     <div className="h-1 w-20 bg-[#02C39A] mx-auto mb-8 rounded-full"></div>
                     <div
-                        className={cn("prose prose-lg prose-slate max-w-none text-slate-600 mx-auto font-poppins")}
+                        className={cn("prose prose-lg prose-slate max-w-none text-slate-600 mx-auto font-poppins text-left")}
                         dangerouslySetInnerHTML={{ __html: data.our_commitment_description }}
                     />
                 </div>

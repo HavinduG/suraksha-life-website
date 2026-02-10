@@ -10,6 +10,11 @@ export const metadata = {
     description: "Learn more about Suraksha Life and our commitment to healthcare.",
 };
 
+// Force dynamic rendering - don't try to statically generate this page at build time
+// This prevents build failures when the WordPress API is slow or unavailable
+export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export default async function AboutPage() {
     const [homeData, aboutData] = await Promise.all([
         getPageData(),

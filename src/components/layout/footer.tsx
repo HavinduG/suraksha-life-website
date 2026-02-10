@@ -81,19 +81,15 @@ const Footer = ({ data }: FooterProps) => {
         return link;
     };
 
-    console.log("Footer Data Debug:", {
-        personal: data?.dr_personal_details,
-        social: data?.social_media_details,
-        all: data
-    });
+
 
 
     return (
-        <footer className="w-full bg-[#ECF0F3] pt-20 pb-8">
+        <footer className="w-full bg-[#E2E8EC] pt-12 pb-6">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
 
                 {/* Main Grid Content */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 mb-8">
 
                     {/* Column 1: Logo & Contact Info (Span 4) */}
                     <div className="lg:col-span-4 flex flex-col space-y-3">
@@ -108,7 +104,7 @@ const Footer = ({ data }: FooterProps) => {
                             />
                         </div>
 
-                        <div className="flex flex-col space-y-4">
+                        <div className="flex flex-col space-y-3">
                             {/* Title */}
                             <p className={cn("text-xs font-bold text-slate-500 uppercase tracking-wider font-montserrat")}>
                                 {data.footer_title_ || "SURAKSHALIFE ISLANDWIDE CANCER AWARENESS SERIES"}
@@ -116,24 +112,46 @@ const Footer = ({ data }: FooterProps) => {
 
                             {/* Contact Details - Positioned immediately below title */}
                             <ul className="space-y-2">
-                                {(data.personal_details || data.dr_personal_details)?.map((detail, index) => (
-                                    <li key={index} className="flex items-start space-x-3">
-                                        <div className="flex-shrink-0 mt-0.5">
-                                            {detail.contact_details_icon && (
-                                                <Image
-                                                    src={detail.contact_details_icon.url}
-                                                    alt={detail.contact_title}
-                                                    width={18}
-                                                    height={18}
-                                                    className="w-[18px] h-[18px] opacity-70"
-                                                />
+                                {(data.personal_details || data.dr_personal_details)?.map((detail, index) => {
+                                    const rawContact = detail.contact_details;
+                                    const contact = rawContact?.trim(); // Trim whitespace
+
+                                    if (!contact) return null;
+
+                                    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+                                    // More robust phone check: allows digits, plus, spaces, dashes, dots, parentheses
+                                    // Must contain at least 5 digits to avoid matching short strings like "10 AM" if purely numeric
+                                    const isPhone = /^[+\d\s().-]+$/.test(contact) && (contact.match(/\d/g) || []).length >= 5;
+
+                                    return (
+                                        <li key={index} className="flex items-start space-x-3">
+                                            <div className="flex-shrink-0 mt-0.5">
+                                                {detail.contact_details_icon && (
+                                                    <Image
+                                                        src={detail.contact_details_icon.url}
+                                                        alt={detail.contact_title}
+                                                        width={18}
+                                                        height={18}
+                                                        className="w-[18px] h-[18px] opacity-70"
+                                                    />
+                                                )}
+                                            </div>
+                                            {isEmail ? (
+                                                <a href={`mailto:${contact}`} className={cn("text-sm text-[#525252] font-medium leading-relaxed max-w-[280px] font-poppins hover:text-[#05668D] transition-colors")}>
+                                                    {contact}
+                                                </a>
+                                            ) : isPhone ? (
+                                                <a href={`tel:${contact.replace(/[^\d+]/g, '')}`} className={cn("text-sm text-[#525252] font-medium leading-relaxed max-w-[280px] font-poppins hover:text-[#05668D] transition-colors")}>
+                                                    {contact}
+                                                </a>
+                                            ) : (
+                                                <span className={cn("text-sm text-[#525252] font-medium leading-relaxed max-w-[280px] font-poppins")}>
+                                                    {contact}
+                                                </span>
                                             )}
-                                        </div>
-                                        <span className={cn("text-sm text-[#525252] font-medium leading-relaxed max-w-[280px] font-poppins")}>
-                                            {detail.contact_details}
-                                        </span>
-                                    </li>
-                                ))}
+                                        </li>
+                                    );
+                                })}
                             </ul>
 
                             {/* Social Icons */}
@@ -144,7 +162,7 @@ const Footer = ({ data }: FooterProps) => {
                                         href={social.social_media_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-10 h-10 bg-[linear-gradient(145deg,#E2E8EC,#FFFFFF)] rounded-lg shadow-[5px_5px_15px_#D1D9E6,-5px_-5px_15px_#FFFFFF] flex items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                                        className="w-9 h-9 bg-[linear-gradient(145deg,#DCE2E6,#FFFFFF)] rounded-lg shadow-[5px_5px_15px_#C8D0D9,-5px_-5px_15px_#FFFFFF] flex items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
                                     >
                                         {social.social_media_icon && (
                                             <Image
@@ -152,7 +170,7 @@ const Footer = ({ data }: FooterProps) => {
                                                 alt="Social"
                                                 width={18}
                                                 height={18}
-                                                className="w-[18px] h-[18px] opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0"
+                                                className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0"
                                             />
                                         )}
                                     </a>
@@ -163,15 +181,15 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 2: Quick Links (Span 4) */}
                     <div className="lg:col-span-4 lg:pl-12">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide font-montserrat")}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-3 md:mb-6 uppercase tracking-wide font-montserrat")}>
                             Quick Link
                         </h3>
-                        <ul className="space-y-2 md:space-y-4">
+                        <ul className="space-y-2 md:space-y-2">
                             {data.quick_links?.map((link, index) => (
                                 <li key={index}>
                                     <Link
                                         href={formatLink(link.page_link_url, link.page_link_name)}
-                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-[15px] font-medium block font-poppins")}
+                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-sm font-medium block font-poppins")}
                                     >
                                         {link.page_link_name}
                                     </Link>
@@ -182,15 +200,15 @@ const Footer = ({ data }: FooterProps) => {
 
                     {/* Column 3: Support (Span 4) */}
                     <div className="lg:col-span-4 lg:pl-12">
-                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-4 md:mb-8 uppercase tracking-wide font-montserrat")}>
+                        <h3 className={cn("text-[#05668D] font-bold text-lg mb-3 md:mb-6 uppercase tracking-wide font-montserrat")}>
                             Support
                         </h3>
-                        <ul className="space-y-2 md:space-y-5">
+                        <ul className="space-y-2 md:space-y-2">
                             {data.support?.map((item, index) => (
                                 <li key={index}>
                                     <Link
                                         href={formatLink(item.support_links_url, item.support_link)}
-                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-base font-medium font-poppins")}
+                                        className={cn("text-slate-600 hover:text-[#05668D] transition-colors text-sm font-medium font-poppins")}
                                     >
                                         {item.support_link}
                                     </Link>
@@ -202,8 +220,8 @@ const Footer = ({ data }: FooterProps) => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 text-center">
-                    <p className={cn("text-slate-500 text-sm font-medium font-poppins")}>
+                <div className="pt-6 text-center border-t border-slate-300">
+                    <p className={cn("text-slate-500 text-xs font-medium font-poppins")}>
                         © 2025
                     </p>
                 </div>

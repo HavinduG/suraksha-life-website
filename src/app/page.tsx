@@ -12,17 +12,17 @@ import Resources from "@/components/home/resources";
 import Footer from "@/components/layout/footer";
 import Testimonial from "@/components/home/testimonial";
 import ShortSection from "@/components/home/short-section";
-import { ACFData } from "@/types/acf";
+import { ACFData, ServiceItem, EventItem, BlogPost, VideoItem, ShortItem, ResourceItem } from "@/types/acf";
 import { getPageData, getServicesData, getEventsData, getBlogData, getVideosData, getShortsData, getResourcesData } from "@/lib/api";
 
 export default async function Home() {
   let pageData: ACFData | null = null;
-  let servicesData: any[] = [];
-  let eventsData: any[] = [];
-  let blogData: any[] = [];
-  let videosData: any[] = [];
-  let shortsData: any[] = [];
-  let resourcesData: any[] = [];
+  let servicesData: ServiceItem[] = [];
+  let eventsData: EventItem[] = [];
+  let blogData: BlogPost[] = [];
+  let videosData: VideoItem[] = [];
+  let shortsData: ShortItem[] = [];
+  let resourcesData: ResourceItem[] = [];
   let errorMsg = "";
 
   try {

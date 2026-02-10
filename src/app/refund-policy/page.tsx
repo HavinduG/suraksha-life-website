@@ -2,7 +2,7 @@ import { getPageData, getRefundPolicyData } from "@/lib/api";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import RefundContent from "@/components/refund-policy/refund-content";
-import { ACFData } from "@/types/acf";
+import { ACFData, WordPressPage } from "@/types/acf";
 import { Metadata } from "next";
 
 export const revalidate = 60;
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function RefundPolicyPage() {
     let pageData: ACFData | null = null;
-    let refundData: any = null;
+    let refundData: WordPressPage | null = null;
 
     try {
         const [homeRes, refundRes] = await Promise.allSettled([

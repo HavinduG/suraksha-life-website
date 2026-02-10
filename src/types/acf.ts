@@ -71,6 +71,12 @@ export interface FacilityItem {
 // Services Section Types
 export interface ServiceItem {
   id: number;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
   acf: {
     service_title: string;
     service_icon: ACFImage;
@@ -346,4 +352,25 @@ export interface PricingServiceItem {
     button_buy: string;
     button_buy_link: string;
   };
+}
+
+export interface WordPressPage {
+  id: number;
+  date: string;
+  modified: string;
+  slug: string;
+  link: string;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+    protected: boolean;
+  };
+  excerpt: {
+    rendered: string;
+    protected: boolean;
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  acf: any; // Use specific ACF type if known, otherwise any is acceptable here for generic pages
 }

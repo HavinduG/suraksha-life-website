@@ -18,6 +18,14 @@ export default function Testimonial({ data }: TestimonialProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const sectionRef = useRef<HTMLElement>(null);
 
+    const nextSlide = () => {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    };
+
     // Auto-advance mechanism (optional, but good for dynamic feel)
     useEffect(() => {
         const timer = setInterval(() => {
@@ -26,17 +34,6 @@ export default function Testimonial({ data }: TestimonialProps) {
         return () => clearInterval(timer);
     }, [currentIndex, testimonials.length]);
 
-
-
-    if (!testimonials.length) return null;
-
-    const nextSlide = () => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    };
-
-    const prevSlide = () => {
-        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    };
 
     return (
         <section ref={sectionRef} className="pt-16 pb-16 overflow-hidden bg-[#dcf3f3] relative">
